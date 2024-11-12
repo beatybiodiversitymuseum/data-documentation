@@ -21,7 +21,7 @@ Type the PrepType you would like to add to the list. If the PrepType can be loan
 
     If you wish to add more than one PrepTypes to the list, you must press `Add`. If you edit the text in the textbox and click `Save`, it will edit the PrepType just created.
 
-## Edit a PrepType from a collection
+## Edit a PrepType 
 
 Navigate to the following url. This will enable you to construct a query to view the current PrepTypes for a collection
 
@@ -34,7 +34,7 @@ Add the `Is Loanable` and `Name` fields to the query. The operator should be `An
 You may use the :material-open-in-new: button to open a single PrepType in a new tab, or select all of the PrepTypes you wish to edit by clicking the checkbox next to those records. You can change the Name of the PrepType and click `Save`. 
 
 
-## Remove a PrepType from a collection
+## Remove a PrepType
 
 Navigate to the following url. This will enable you to construct a query to view the current PrepTypes for a collection
 
