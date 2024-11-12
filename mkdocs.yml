@@ -31,7 +31,7 @@ plugins:
   - tags
   - material-plausible
 theme:
-  favicon: assets/beaty-logo-symbol-red.svg
+  favicon: assets/favicon.ico
   logo: assets/beaty-logo-symbol-white.png
   icon:
     repo: fontawesome/brands/github
