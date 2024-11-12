@@ -16,7 +16,7 @@ A query to look for records created in the last 2 weeks would look like this.
 | Field | Operator | Value |
 | ----- | -------- | ----- |
 | Catalogue Number | Any | N/A |
-| Timestamp Created | Less Than {Relative} {Weeks} {in the past} | 2 |
+| Timestamp Created | Greater Than {Relative} {Weeks} {in the past} | 2 |
 
 By clicking on the :material-circle: to the right of the Timestamp Created row, the results can be sorted. To see the most recent results at the top, click the button until you see this icon :material-arrow-down-bold-circle:.
 
