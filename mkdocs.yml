@@ -29,6 +29,7 @@ plugins:
   - glightbox
   - search
   - tags
+  - material-plausible
 theme:
   favicon: assets/beaty-logo-symbol-red.svg
   logo: assets/beaty-logo-symbol-white.png
@@ -55,7 +56,7 @@ theme:
       primary: custom
       accent: red
 repo_url: https://github.com/beatybiodiversitymuseum/data-docs
-repo_name: GitHub Repository 
+repo_name: GitHub Repository
 edit_uri: "edit/main/docs"
 markdown_extensions:
   - attr_list
@@ -93,6 +94,22 @@ extra_css:
   - stylesheets/extra.css
 copyright: <iframe src="https://status.beatymuseum.ubc.ca/badge" width="250" height="30" frameborder="0" scrolling="no"></iframe>
 extra:
+  analytics:
+    provider: plausible
+    domain: beatybiodiversitymuseum.github.io
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: fontawesome/regular/thumbs-up
+          name: This page was helpful
+          data: good
+          note: >-
+            Thanks for your feedback!
+        - icon: fontawesome/regular/thumbs-down
+          name: This page could be improved
+          data: bad
+          note: >-
+            Thanks for your feedback!
   generator: false
   social:
     - icon: fontawesome/brands/facebook
