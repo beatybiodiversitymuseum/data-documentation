@@ -12,6 +12,7 @@ nav:
           - specify/getting-started/workbench.md
       - Tutorials:
           - specify/tutorials/keep-track-of-recently-entered-records.md
+          - specify/tutorials/edit-the-preptype-picklist.md
   - Portal:
       - portal/index.md
       - portal/searching.md
