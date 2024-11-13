@@ -56,7 +56,7 @@ theme:
     - scheme: beaty
       primary: custom
       accent: red
-repo_url: https://github.com/beatybiodiversitymuseum/data-docs
+repo_url: https://github.com/beatybiodiversitymuseum/data-documentation
 repo_name: GitHub Repository
 edit_uri: "edit/main/docs"
 markdown_extensions:
