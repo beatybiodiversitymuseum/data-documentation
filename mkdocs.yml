@@ -3,16 +3,17 @@ nav:
   - Home:
       - index.md
   - Specify:
-      - Getting Started:
-          - specify/getting-started/index.md
-          - specify/getting-started/user-preferences.md
-          - specify/getting-started/simple-search.md
-          - specify/getting-started/queries.md
-          - specify/getting-started/trees.md
-          - specify/getting-started/workbench.md
       - Tutorials:
-          - specify/tutorials/keep-track-of-recently-entered-records.md
-          - specify/tutorials/edit-the-preptype-picklist.md
+          - specify/tutorials/getting-started.md
+          - specify/tutorials/user-preferences.md
+          - specify/tutorials/simple-search.md
+          - specify/tutorials/queries.md
+          - specify/tutorials/trees.md
+          - specify/tutorials/workbench.md
+      - How-to:
+          - specify/how-to/keep-track-of-recently-entered-records.md
+          - specify/how-to/edit-the-preptype-picklist.md
+
   - Portal:
       - portal/index.md
       - portal/searching.md

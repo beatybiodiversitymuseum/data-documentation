@@ -18,7 +18,7 @@ Welcome to the the Beaty Biodiversity Museum's documentation site. Here you can 
 
     Learn how to use Specify 7, the museum's collection management system.
 
-    [:octicons-arrow-right-24: Getting started](specify/getting-started/index.md)
+    [:octicons-arrow-right-24: Getting started](specify/tutorials/getting-started.md)
 
 -   :material-search-web:{ .lg .middle } __Public Portal__
 

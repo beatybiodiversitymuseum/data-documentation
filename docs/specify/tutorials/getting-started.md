@@ -1,4 +1,6 @@
 ---
+title: "Getting Started"
+icon: material/star
 tags:
   - Specify
 ---
