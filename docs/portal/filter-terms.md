@@ -1,6 +1,6 @@
 ---
 title: "Data Portal Filter Terms"
-icon: material/funnel
+icon: material/filter
 ---
 
 # Data Portal Filter Terms
