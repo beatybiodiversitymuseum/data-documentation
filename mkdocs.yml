@@ -20,6 +20,7 @@ nav:
       - portal/navigating-to-a-particular-dataset.md
       - portal/downloading-data.md
       - portal/viewing-data.md
+      - portal/filter-terms.md
       - portal/ids.md
       - Programmatic Access:
           - portal/programmatic-access/gbif-api.md
