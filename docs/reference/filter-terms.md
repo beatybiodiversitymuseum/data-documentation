@@ -7,6 +7,11 @@ tags:
 
 # Portal Filter Terms
 
+!!! note
+
+    `?` is the wildcard for a single character
+    `*` is the wildcard for one or more characters
+
 | Term | Wildcards Supported? | Description |
 | ---- | -------------------- | ----------- |
 | Text Search | :x: | Simple full-text search parameter. The value for this parameter can be a simple word or a phrase. |
