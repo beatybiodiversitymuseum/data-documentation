@@ -15,6 +15,8 @@ nav:
           - specify/how-to/keep-track-of-recently-entered-records.md
           - specify/how-to/edit-the-preptype-picklist.md
           - specify/how-to/download-a-query-as-a-csv.md
+      - Explanation:
+          - specify/explanation/structuring-a-locality.md
 
   - Portal:
       - portal/index.md
