@@ -25,6 +25,8 @@ nav:
       - portal/downloading-data.md
       - portal/viewing-data.md
       - portal/ids.md
+      - How To:
+          - portal/how-to/download-images.md
       - Programmatic Access:
           - portal/programmatic-access/gbif-api.md
   - Reference:
