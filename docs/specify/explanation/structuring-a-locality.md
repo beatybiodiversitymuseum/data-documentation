@@ -7,12 +7,12 @@ icon: 'fontawesome/solid/location-dot'
 
 In Specify and in Darwin core, a location is split into two main parts.
 
-1. An unstructured string which represents the specific details of a place. Locality names are entered through a simple textbox, and locality name is a required field.
+1. A Locality, which represents the specific details of a place. Locality names are entered through a simple textbox, and are required
 
     - "Top of Cyprus Mountain"
     - "UBC Campus"
 
-2. A structured component which fits into a formal geography tree.
+2. A Geography, which is a structured component which fits into a formal tree.
 
     - "North America, Canada, British Columbia"
     - "Europe, United Kingdom, England"
