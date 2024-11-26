@@ -7,7 +7,7 @@ icon: 'fontawesome/solid/location-dot'
 
 In Specify and in Darwin core, a location is split into two main parts.
 
-1. An unstructured string which represents the specific details of a place
+1. An unstructured string which represents the specific details of a place. Locality names are entered through a simple textbox, and locality name is a required field.
 
     - "Top of Cyprus Mountain"
     - "UBC Campus"
@@ -23,16 +23,9 @@ This page will explain how to combine these two components to create localities 
 
 The Geography table is linked to the Locality table. Localities exist within a certain Geography.
 
-``` mermaid
-classDiagram
-  Locality: +String LocalityName 
-  Locality: +BigDecimal Latitude1
-  Locality: +BigDecimal Longitude1
-  Geography <-- Locality: found in 
-  class Geography{
-    +String Name 
-    +String GeographyCode 
-  }
+```mermaid
+graph LR
+    A[Locality] ---> B[Geography];
 ```
 
 Geography is organized in a tree structure, similar to how taxonomy is arranged. Countries exist as children of continents, and states and provinces exist as children of countries.
