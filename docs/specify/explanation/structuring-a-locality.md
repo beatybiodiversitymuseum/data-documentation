@@ -55,6 +55,11 @@ The Locality table is for the specifics of a place, most importantly the name. A
     <figcaption>Creating a locality with a linked geography. Screenshot from demo database.</figcaption>
     </figure>
 
+!!! tip
+
+    The locality name and geography will appear together on the record. The bold text at the top of the locality entry form is a preview of what it will look like. 
+    In the example above, we can see this text reads **Canada, British Columbia; North Shore, 5km south of big beach**
+
 ## Why does separating geography into its own table matter?
 
 When searching for all records from a particular place, it can be helpful to search on a geography instead of the locality name. As they are defined in a tree, there are a limited number of items for the user to pick from. It also helps to standardize spelling, eliminating variations in how a province or county may be written, further aiding search. Geographies are also parsed far better by data aggregators such as GBIF when they are standardized in this way, and tools that help detect errors in coordinate pairs use the standardized geographical information.

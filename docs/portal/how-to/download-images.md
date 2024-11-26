@@ -10,6 +10,10 @@ icon: material/image
 
 Images are not hosted on the portal itself, rather sourced from the CDN. Downloading an image to your computer is as simple as opening the image by clicking on the image link, and saving the image from your browser. Below are the steps in detail:
 
+!!! note "Bulk downloading images"
+
+    We are exploring ways to make it easier to download many images in bulk. Until then, if you have a large amount of images that you would like download, please contact the respective collection curator to start a specialized request.
+
 === "From the TABLE view"
 
     ## Open the occurrence associated with the image you want to download
