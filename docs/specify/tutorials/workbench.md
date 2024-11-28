@@ -28,6 +28,16 @@ By the end of this page, you will:
 - [ ] Understand the conditions that may prevent a rollback from being successful
 - [ ] Learn how to transfer a workbench to another Specify user
 
+## Introduction Video
+
+!!! note
+
+    The video below will start playing after the :50 mark, up until that point it is a black screen.
+
+<iframe src="https://drive.google.com/file/d/1f7EjUm4wa9ax0IHRE3yhzSfWosO-maFy/preview" width="640" height="480" allow="autoplay"></iframe>
+
+![cc-by-icon](../../assets/cc-by-icon.svg) [Specify Collection Consortium](https://specifysoftware.org)
+
 ## Import Data from a CSV, XLSX, or TSV file
 
 Specify 7 can import data from more traditional file types (such as `.csv`, `.xlsx` (excel), or `.tsv`) through the workbench. To get started on importing data through this method, you first must upload the file into the system.
