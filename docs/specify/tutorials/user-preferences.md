@@ -14,6 +14,12 @@ By the end of this page, you will:
 
 - [ ] Understand how to access and change preferences for your account.
 
+## Introduction Video
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/767852381?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Specify 7 - User Preferences"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+![cc-by-icon](../../assets/cc-by-icon.svg) [Specify Collection Consortium](https://specifysoftware.org)
+
 ## General
 
 - Light/Dark theme: This functions similarly to other websites which have a light and dark theme. You may also have the theme match your system setting if you use different modes on different devices.

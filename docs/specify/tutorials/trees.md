@@ -19,6 +19,12 @@ By the end of this page, you will:
 - [ ] Be able to add a new node to a tree via the tree interface
 - [ ] Be able to remove a node from a tree via the tree interface
 
+## Introduction Video
+
+<div style="padding:59.06% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/668792975?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Specify Trees"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+![cc-by-icon](../../assets/cc-by-icon.svg) [Specify Collection Consortium](https://specifysoftware.org)
+
 ## Navigate to a tree
 
 To navigate to a tree, select :material-file-tree-outline: `Trees` tab from the navigation menu.
