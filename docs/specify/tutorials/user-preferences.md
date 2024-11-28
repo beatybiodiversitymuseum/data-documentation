@@ -6,7 +6,7 @@ icon: material/cog
 
 # User Preferences
 
-By default, users will have the Beaty Biodiversity Logo as the homescreen image, and the light theme applied. However, if you wish to change this, you may do so by clicking on the :material-account-circle: button in the navigation menu. Then, `Preferences` under Customization. This page will highlight some key settings that you may wish to change under each category.
+By default, users will have the Beaty Biodiversity Museum Logo as the homescreen image, and the light theme applied. However, if you wish to change this, you may do so by clicking on the :material-account-circle: button in the navigation menu. Then, `Preferences` under Customization. This page will highlight some key settings that you may wish to change under each category.
 
 ## Learning Objectives
 
