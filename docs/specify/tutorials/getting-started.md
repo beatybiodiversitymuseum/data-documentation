@@ -19,6 +19,11 @@ By the end of this page, you will:
 - [ ] Grasp how Specify differs from other CMS systems, and the relational database model that Specify uses.
 - [ ] Have the skills to enter data into a table using the `Data Entry` process.
 
+## Introduction Video
+
+<div style="padding:58.06% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/751827532?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Introduction to Specify 7"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+![cc-by-icon](../../assets/cc-by-icon.svg) [Specify Collection Consortium](https://specifysoftware.org)
 
 ## Definitions and Key Concepts
 
