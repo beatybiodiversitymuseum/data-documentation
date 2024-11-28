@@ -7,6 +7,10 @@ icon: material/file-upload-outline
 
 # Using the Workbench
 
+!!! info
+
+    There is a Specify documentation page about the technical details of the workbench which can be found [here](https://discourse.specifysoftware.org/t/the-specify-7-workbench/540)
+
 The workbench is a tool that allows the user to enter a lot of records of the same type quickly and safely. The workbench should be used:
 
 - To import large amounts of data from external collaborators or researchers.
