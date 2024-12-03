@@ -17,6 +17,7 @@ nav:
           - specify/how-to/download-a-query-as-a-csv.md
           - specify/how-to/merge-localities.md
           - specify/how-to/use-geolocate-to-find-coordinates-for-a-locality.md
+          - specify/how-to/search-for-records-by-scientific-name.md
       - Explanation:
           - specify/explanation/structuring-a-locality.md
 
