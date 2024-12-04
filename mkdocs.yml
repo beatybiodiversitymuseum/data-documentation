@@ -25,15 +25,15 @@ nav:
 
   - Portal:
       - portal/index.md
-      - portal/searching.md
-      - portal/navigating-to-a-particular-dataset.md
-      - portal/downloading-data.md
-      - portal/viewing-data.md
-      - portal/ids.md
+      - Tutorials:
+          - portal/tutorials/searching.md
+          - portal/tutorials/navigating-to-a-particular-dataset.md
+          - portal/tutorials/downloading-data.md
+          - portal/tutorials/viewing-data.md
+          - portal/tutorials/ids.md
       - How To:
           - portal/how-to/download-images.md
-      - Programmatic Access:
-          - portal/programmatic-access/gbif-api.md
+          - portal/how-to/access-data-programmatically.md
   - Reference:
       - reference/index.md
       - reference/key-reference.md

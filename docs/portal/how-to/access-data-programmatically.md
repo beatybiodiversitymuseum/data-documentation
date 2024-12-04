@@ -1,9 +1,9 @@
 ---
-title: 'GBIF API'
+title: 'Access data programmatically'
 icon: 'material/api'
 ---
 
-# GBIF API
+# Access data programmatically
 
 When doing analysis for a research study or project, it can be helpful to fetch data directly through code. As all data on the data portal is sourced from GBIF, this means that the GBIF API is the best way to access data from the Beaty Biodiversity Museum programmatically. You do not need an API key to access the data.
 
