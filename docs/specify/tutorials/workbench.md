@@ -103,7 +103,7 @@ If you are uploading the same type of data over and over again, you may wish to 
   <figcaption>Choosing an Existing Plan</figcaption>
 </figure>
 
-You will then be able to select a previous dataset and the mapping will be applied to the uploaded. It may be helpful to create a template file with the basic mappings, and then make further customizations on a dataset by dataset basis.
+You will then be able to select a previous dataset and the mapping will be applied to the one you are currently uploading. It may be helpful to create a template file with the basic mappings, and then make further customizations on a dataset by dataset basis.
 
 !!! quote ""
 
@@ -111,7 +111,7 @@ You will then be able to select a previous dataset and the mapping will be appli
 
 ### Validating Data
 
-Before you attempt to uplaod data into Specify, you should perform a validation. A validation will ensure that the data you are attempting to upload will comply with the database schema used by Specify. If you attempt to upload without validating first, Specify will perform a validation anyways. To validate the data, press the **Validate** button in the top right of the interface.
+Before you attempt to upload data into Specify, you should perform a validation. A validation will ensure that the data you are attempting to upload will comply with the database schema used by Specify. If you attempt to upload without validating first, Specify will perform a validation anyways, but it will stop when it encounters an error, as opposed to giving you an overview of errors in the entire dataset. To validate the data, press the **Validate** button in the top right of the interface.
 
 The validation process may take some time for larger datasets. A progress bar will appear with the estimated time to completion.
 
@@ -123,7 +123,7 @@ The validation process may take some time for larger datasets. A progress bar wi
 
 After a validation process has been performed, and there are _no_ errors in the dataset, it can then be uploaded into Specify. To upload data, press the **Upload** button in the top right of the interface. Uploading means that the data will be added to the Specify database.
 
-Similar to the validation process, a progress bar will appear showing the estimated time to completion. When data is updated successfully, a statement will appear at the top of the interface indicating that the dataset has been uploaded and is now read only.
+Similar to the validation process, a progress bar will appear showing the estimated time to completion. When data is uploaded successfully, a statement will appear at the top of the interface indicating that the dataset has been uploaded and is now read only.
 
 <figure markdown>
   ![Image](../../assets/screenshots/Using_the_Workbench_Image5.png)
@@ -136,7 +136,7 @@ Similar to the validation process, a progress bar will appear showing the estima
 
 #### Results
 
-If you would like to see how many records were updated for each table, you can use the **Results** button in the header. This will display a side panel that will display such statistics. This will also allow you to create a **Record Set**, which is covered elsewhere in this documentation.
+If you would like to see how many records were uploaded for each table, you can use the **Results** button in the header. This will display a side panel that will display such statistics. This will also allow you to create a **Record Set**, which is covered elsewhere in this documentation.
 
 #### Rolling Back an Upload
 
@@ -144,7 +144,7 @@ While the dataset remains in your workbench, you can roll back an upload if ther
 
 !!! danger
 
-    Rollbacks cannot be performed if there have been anything changes to the data uploaded. This can include things you may not think of, such as another user linking an object to a storage node. Rollbacks should be used as a last resort, and not relied upon as a reason to be careless when uploading data.
+    Rollbacks cannot be performed if there have been any changes to the data uploaded. This can include things you may not think of, such as another user linking an object to a newly created storage tree node. Rollbacks should be used as a last resort, and not relied upon as a reason to be careless when uploading data.
 
 !!! quote ""
 
@@ -153,7 +153,7 @@ While the dataset remains in your workbench, you can roll back an upload if ther
 
 ## Transferring Ownership of a Dataset to Another Specify User
 
-At any time in the above process it may be useful to transfer ownership of the dataset to another user. This may be because they will continue to work on it, or they may be asked to review it before the data is uploaded to the database. To transfer ownership of a dataset you are working on to another user click `Tools` to the right of the dataset name, then `Change Owner`. Then, select the user that you wish to transfer the dataset to.
+At any time in the above process it may be useful to transfer ownership of the dataset to another user. This may be because they will continue to work on it, or they may be asked to review it before the data is uploaded to the database. To transfer ownership of a dataset you are working on to another user click `Tools` to the right of the dataset name, then `Change Owner`. Select the user that you wish to transfer the dataset to.
 
 !!! quote ""
 
