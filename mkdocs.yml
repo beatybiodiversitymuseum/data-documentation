@@ -21,6 +21,7 @@ nav:
           - specify/how-to/search-for-records-by-scientific-name.md
       - Explanation:
           - specify/explanation/structuring-a-locality.md
+          - specify/explanation/what-is-a-guid.md
 
   - Portal:
       - portal/index.md
