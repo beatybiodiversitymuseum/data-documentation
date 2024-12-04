@@ -32,7 +32,7 @@ tags:
 | Elevation | :x: |Elevation (altitude) in metres above sea level. Supports range queries, entered as `lower,upper` |
 | Establishment means | :x: | Whether an organism or organisms have been introduced to a given place and time through the direct or indirect activity of modern humans, as defined in the [GBIF EstablishmentMeans vocabulary](https://registry.gbif.org/vocabulary/EstablishmentMeans/concepts). |
 | Administrative area | :x: | Search based on the [GADM Global Administrative Database](https://gadm.org/) |
-| Location | :x: | Geospatial search for records. See [Searching for specimens on the portal](../portal/searching.md#using-a-coordinate-polygon) for a guide on how to use this filter |
+| Location | :x: | Geospatial search for records. See [Searching for specimens on the portal](../portal/tutorials/searching.md#using-a-coordinate-polygon) for a guide on how to use this filter |
 | Higher Geography | :x: | Geographic name less specific than the information captured in the locality term. |
 | Identified by ID | :x: | Identifier (e.g. ORCID) for the person who provided the taxonomic identification of the occurrence. |
 | Is in cluster | :x: | **Experimental**. Searches for records which are part of a cluster. See the documentation on clustering. |

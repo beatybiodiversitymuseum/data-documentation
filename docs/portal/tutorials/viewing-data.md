@@ -15,7 +15,7 @@ There are many different ways to view data on the portal.
 Each of these views can be accessed through the tabs directly under the navigation menu.
 
 <figure markdown>
-  ![Image](../assets/screenshots/View_Tabs.png)
+  ![Image](../../assets/screenshots/View_Tabs.png)
   <figcaption>Tabs to use to select different views</figcaption>
 </figure>
 
@@ -32,15 +32,15 @@ Our first option is change the colour of the map. There are 4 options to pick fr
 <div class="grid cards" markdown>
 
 -   <figure markdown>
-    ![Image](../assets/screenshots/Bright_Map.png)
+    ![Image](../../assets/screenshots/Bright_Map.png)
     <figcaption>Bright</figcaption>
     </figure>
 -   <figure markdown>
-    ![Image](../assets/screenshots/Nature_Map.png)
+    ![Image](../../assets/screenshots/Nature_Map.png)
     <figcaption>Nature</figcaption>
     </figure>
 -   <figure markdown>
-    ![Image](../assets/screenshots/Dark_Map.png)
+    ![Image](../../assets/screenshots/Dark_Map.png)
     <figcaption>Dark</figcaption>
     </figure>
 </div>

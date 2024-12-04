@@ -1,5 +1,7 @@
 ---
 title: "Saved queries"
+tags:
+    - Queries
 icon: material/database-search
 ---
 
