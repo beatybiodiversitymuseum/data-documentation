@@ -38,6 +38,7 @@ nav:
       - reference/index.md
       - reference/key-reference.md
       - reference/filter-terms.md
+      - reference/saved-queries.md
 
 plugins:
   - glightbox
