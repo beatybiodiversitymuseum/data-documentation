@@ -2,4 +2,4 @@
 title: 'Reference'
 ---
 
-Coming soon!
+This section holds reference information across topics.
