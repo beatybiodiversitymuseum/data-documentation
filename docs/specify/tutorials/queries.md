@@ -65,10 +65,9 @@ Only the fields that you select from the schema will show up in the results retu
 | Any (default) | Does not apply any filtering, however a field must be added with this operator to show in the results. |
 | Like | Search based on a pattern. `%` represents zero or more characters. `_` represents a single character. |
 | Equal | Returns exact matches only. |
-| Equal | Returns exact matches only. |
 | Greater than, less than, greater or equal to, less or equal to | Function as expected with numerical fields or dates. |
 | Between | Returns matches that fall between the minimum and maximum specified. *Note that this can be used for catalogNumbers, even though there is an alphanumeric character in the format.* For example, between `X000001` and `X000050` will work. Can also be used with dates. |
-| In | Can be used to search based on comma separated values. For example `X000001, X000003, X000005` will return those three Collection Objects are the results. If you are using the operator on a Pick List, you can hold down ++ctrl++ or ++cmd++ to select multiple values from the list |
+| In | Can be used to search based on comma separated values. For example `X000001, X000003, X000005` will return those three Collection Objects in the results. If you are using the operator on a Pick List, you can hold down ++ctrl++ or ++cmd++ to select multiple values from the list |
 | Contains | Returns any result that contains the string |
 | Empty | Returns results that do not have a value for the field |
 | True/False | Used for boolean fields (usually represented by checkboxes). `True` is for checked, `False` is for unchecked. `True or Empty` should be used when filtering for Collection Objects with current determinations for export. |
@@ -82,7 +81,7 @@ Let's say that we want to display all catalog numbers in the database. We first 
 <figcaption>Selecting the base table for a new query</figcaption>
 </figure>
 
-Upon selecting our base table, this will open up the main query interface. In the top left, is where we select fields from. After selecting the field and clicking :material-plus: the field will be added to the list of selected fields, shown in the bottom of the screen. By default, the logical operator will be `Any`. We can then change the operator to be `Between` by clicking on the dropdown. 
+Upon selecting our base table, this will open up the main query interface. In the top left is a box where we select fields from. After selecting the field and clicking :material-plus: the field will be added to the list of selected fields, shown in the bottom of the screen. By default, the logical operator will be `Any`. We can then change the operator to be `Between` by clicking on the dropdown. 
 
 <figure markdown>
 ![Image](../../assets/screenshots/query-catalognumber-range.png)
@@ -134,7 +133,7 @@ This will return the two columns in the results
 
 ## Saving Queries
 
-If you like the query that you have built, you can save your query for another time. Hit `Save Query` to name it. The next time you go to queries, you can open it up and use it more quickly. If you hit `Save query` while using one of your saved queries, it will update any changes that you've made. `Save Query As` will save the query, but under a new name (similar to how saving files in other programs).
+If you like the query that you have built, you can save your query for another time. Hit `Save Query` to name it. The next time you go to queries, you can open it up and use it more quickly. If you hit `Save query` while using one of your saved queries, it will update any changes that you've made. `Save Query As` will save the query, but under a new name (similar to how saving files in other programs works).
 
 !!! note 
 
