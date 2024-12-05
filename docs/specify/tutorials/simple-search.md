@@ -31,7 +31,7 @@ The simple search interface can be accessed by clicking on the :material-magnify
 
 ## Search for a Collection Object via its catalogNumber
 
-In the textpop that you just navigated to via the steps above, enter in the catalogNumber of the Collection Object you wish to open. A catalogNumber will always be of the form `[A-Z]######`, where the first capitalized letter is specific to a collection. 
+In the text popup that you just navigated to via the steps above, enter in the catalogNumber of the Collection Object you wish to open. A catalogNumber will always be of the form `[A-Z]######`, where the first capitalized letter is specific to a collection. 
 
 Let's say that I want to navigate to record `X000001` in the Fish collection. I would enter `X000001` in the simple search text box, and then hit ++enter++.
 
