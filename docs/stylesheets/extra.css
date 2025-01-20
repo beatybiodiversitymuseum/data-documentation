@@ -1,7 +1,4 @@
 .md-typeset .question > .admonition-title::before,
-.md-typeset .question > summary::before {
-  background-color: #ED1C24;
-}
 
 [data-md-color-scheme="beaty"] {
     --md-primary-fg-color:        #ED1C24;
