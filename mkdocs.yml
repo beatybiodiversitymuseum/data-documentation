@@ -13,6 +13,7 @@ nav:
           - specify/tutorials/workbench.md
       - How-to:
           - specify/how-to/keep-track-of-recently-entered-records.md
+          - specify/how-to/batch-upload-images.md
           - specify/how-to/edit-the-preptype-picklist.md
           - specify/how-to/download-a-query-as-a-csv.md
           - specify/how-to/merge-localities.md
@@ -75,6 +76,7 @@ repo_name: GitHub Repository
 edit_uri: "edit/main/docs"
 markdown_extensions:
   - attr_list
+  - footnotes
   - md_in_html
   - pymdownx.superfences
   - abbr
