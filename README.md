@@ -14,5 +14,4 @@ Each page of the documentation will have two icons in the top-right corner (a sh
 
 ## Feedback
 
-Feedback is always welcome. If you spot an issue in the documentation, you may leave an issue in this repository. Alternatively, you may use the thumbs up or thumbs down buttons at the bottom of each page to leave anonymous feedback for that particular page.
-
+Feedback is always welcome. If you spot an issue in the documentation, you may leave an issue in this repository. Alternatively, you may use the thumbs up or thumbs down buttons at the bottom of each page to leave anonymous feedback for that particular page. Thanks!
