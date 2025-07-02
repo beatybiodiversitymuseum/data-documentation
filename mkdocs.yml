@@ -14,6 +14,7 @@ nav:
       - How-to:
           - specify/how-to/keep-track-of-recently-entered-records.md
           - specify/how-to/batch-upload-images.md
+          - specify/how-to/batch-download-images.md
           - specify/how-to/batch-edit-records.md
           - specify/how-to/edit-the-preptype-picklist.md
           - specify/how-to/download-a-query-as-a-csv.md
@@ -47,6 +48,7 @@ plugins:
   - search
   - tags
   - material-plausible
+  - mkdocs-video
 theme:
   favicon: assets/favicon.ico
   logo: assets/beaty-logo-symbol-white.png
