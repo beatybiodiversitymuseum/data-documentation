@@ -27,5 +27,6 @@ jobs:
       - run: pip install \
           mkdocs-material \
           mkdocs-glightbox \
-          material-plausible-plugin
+          material-plausible-plugin \
+          mkdocs-video
       - run: mkdocs gh-deploy --force
