@@ -24,3 +24,41 @@ Notes from today's Specify 7.11 release with the new Batch Edit feature:
 > Commiting the Data Set will update, add, and delete the data from the spreadsheet to the Specify database.
 actually means "overwrite" for delete.
 - I can press back on the Batch Edit results page and get back to the query non-destructively
+- Longer pastes than existing cells in the Batch Editor seem to just cut off extra values, no warning or overwrite that I can see.
+- I'm spot-checking data alignment using Excel's Go To command (e.g., ctrl-G A1003)
+- Made a secondary batch edit sheet next to my current active Excel sheet to prep the current batch paste.
+- Ended up writing a script to chunk the file:
+```vb
+Sub SplitSheetIntoChunks_OneBased()
+    Dim wsSource As Worksheet
+    Dim wb As Workbook
+    Dim lastRow As Long
+    Dim chunkSize As Long
+    Dim i As Long
+    Dim wsNew As Worksheet
+    Dim startRow As Long
+    Dim endRow As Long
+    
+    Set wb = ThisWorkbook
+    Set wsSource = wb.Sheets("all-records") ' <-- change if needed
+    chunkSize = 3000
+
+    ' Get last row in column A
+    lastRow = wsSource.Cells(wsSource.Rows.Count, 1).End(xlUp).Row
+
+    For i = 1 To lastRow Step chunkSize
+        Set wsNew = wb.Sheets.Add(After:=wb.Sheets(wb.Sheets.Count))
+        
+        startRow = i
+        endRow = Application.Min(i + chunkSize - 1, lastRow)
+
+        wsNew.Name = CStr(startRow) & "-" & CStr(endRow)
+        
+        ' Copy the chunk (no header)
+        wsSource.Rows(startRow & ":" & endRow).Copy _
+            Destination:=wsNew.Rows(1)
+    Next i
+
+    MsgBox "Done! Split into 3000-row chunks."
+End Sub
+```

@@ -44,16 +44,16 @@ The documentation is organized into four broad categories:
 
 === "Tutorials"
 
-    Documentation in this area is meant to be completed first, and outlines the core functionality of the given topic area. Expect examples that are easy to follow, and little to no prior knowledge of the system is required to follow along.
+    Documentation in [Tutorials](https://beatybiodiversitymuseum.github.io/data-documentation/specify/tutorials/getting-started/) is meant to be completed first, and outlines the core functionality of the given topic area. Expect examples that are easy to follow, and little to no prior knowledge of the system is required to follow along.
 
 === "How-To"
 
-    After going through the pages in the Tutorial section, the How-To articles will outline how to perform a specific task. There is an assumption that the user is more familiar with the overall system, and instructions may gloss over more of the basics.
+    After going through the pages in the Tutorial section, the [How-To](https://beatybiodiversitymuseum.github.io/data-documentation/specify/how-to/keep-track-of-recently-entered-records/) articles will outline how to perform a specific task. There is an assumption that the user is more familiar with the overall system, and instructions may gloss over more of the basics.
 
 === "Explanations"
 
-    These articles seek to answer the "why" question, to help understand the deeper rationale behind a component of the system. For some, this may be an invaluable way to begin to make sense of a topic, or to explore things beyond what the documentation covers.
+    [Explanation](https://beatybiodiversitymuseum.github.io/data-documentation/specify/explanation/structuring-a-locality/) articles seek to answer the "why" question, to help understand the deeper rationale behind a component of the system. For some, this may be an invaluable way to begin to make sense of a topic, or to explore things beyond what the documentation covers.
 
 === "Reference"
 
-    Similar to a dictionary or encyclopedia, this is an area where very specific things can be looked up. Other sites, such as the data portal, may link to a particular reference page to help give a complete overview of a term.
+    Similar to a dictionary or encyclopedia, [Reference](https://beatybiodiversitymuseum.github.io/data-documentation/reference/) is an area where very specific things can be looked up. Other sites, such as the data portal, may link to a particular reference page to help give a complete overview of a term.
