@@ -2,6 +2,7 @@
 hide:
   - navigation
   - toc
+description: Beaty Biodiversity Museum Documentation
 ---
 
 # Welcome
