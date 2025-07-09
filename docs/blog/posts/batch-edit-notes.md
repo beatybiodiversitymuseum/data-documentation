@@ -8,8 +8,7 @@ description: >
 categories:
   - General
 search:
-  boost: 0.01  # Lower boost
-
+  exclude: true
 ---
 
 Notes from today's Specify 7.11 release with the new Batch Edit feature:
