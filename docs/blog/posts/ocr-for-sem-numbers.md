@@ -6,6 +6,9 @@ description: >
     Running OCR on images that have data "printed" on the image itself to include in metadata.
 categories:
   - General
+search:
+  boost: 0.01  # Lower boost
+
 ---
 There are a series of images that have SEM numbers directly on the specimens. Ideally, it would be helpful to run OCR on the images and extract the SEM number programmatically.
 

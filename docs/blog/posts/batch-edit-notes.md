@@ -7,6 +7,9 @@ description: >
     Batch edits are included in the latest Specify.
 categories:
   - General
+search:
+  boost: 0.01  # Lower boost
+
 ---
 
 Notes from today's Specify 7.11 release with the new Batch Edit feature:
