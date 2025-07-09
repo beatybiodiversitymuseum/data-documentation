@@ -62,3 +62,4 @@ Sub SplitSheetIntoChunks_OneBased()
     MsgBox "Done! Split into 3000-row chunks."
 End Sub
 ```
+- Unclear whether the query has cross references
