@@ -9,9 +9,7 @@ icon: material/graph
 ## Introduction
 This is a quick searchable reference of the database table schema. Type in the "Search..." area below to test your search. If you want to use extended search, see the [reference below](#extended-search).
 
-## Search the database schema
-
-
+## Search
   <input type="text" id="searchInput" placeholder="Search...">
   <ul id="results"></ul>
 
