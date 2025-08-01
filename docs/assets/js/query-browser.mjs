@@ -28306,12 +28306,12 @@ const data = [
   distance: 50,
   useExtendedSearch: true,
 keys: [
-    {name: 'name', weight: 0.50},
-    {name: "key", weight: 0.05},
-    {name: "desc", weight: 0.05},
+    {name: 'name', weight: 0.30},
+    {name: "key", weight: 0.10},
+    {name: "desc", weight: 0.10},
     {name: 'items.name', weight: 0.30},
-    {name: "items.key", weight: 0.05},
-    {name: "items.desc", weight: 0.05},
+    {name: "items.key", weight: 0.10},
+    {name: "items.desc", weight: 0.10},
 ]
 
 }

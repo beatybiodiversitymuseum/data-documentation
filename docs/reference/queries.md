@@ -1,5 +1,5 @@
 ---
-title: "Query Fields Helper"
+title: "Search the database schema"
 tags:
     - queries
     - search
