@@ -28303,13 +28303,13 @@ const data = [
   includeScore: true,
   includeMatches: true,
   threshold: 0.2, // 0 is perfect match, 1.0 is match anything
-  distance: 50,
+  distance: 500,
   useExtendedSearch: true,
 keys: [
-    {name: 'name', weight: 0.30},
+    {name: 'name', weight: 0.70},
     {name: "key", weight: 0.10},
     {name: "desc", weight: 0.10},
-    {name: 'items.name', weight: 0.30},
+    {name: 'items.name', weight: 0.10},
     {name: "items.key", weight: 0.10},
     {name: "items.desc", weight: 0.10},
 ]
