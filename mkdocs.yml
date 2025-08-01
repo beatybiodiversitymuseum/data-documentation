@@ -42,6 +42,7 @@ nav:
       - reference/key-reference.md
       - reference/filter-terms.md
       - reference/saved-queries.md
+      - reference/queries.md
 
 plugins:
   - glightbox
@@ -110,12 +111,12 @@ markdown_extensions:
   - pymdownx.tilde
   - pymdownx.tasklist:
       custom_checkbox: true
- extra_javascript: 
-  - https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/shoelace.js
-  - js/query-field-select.js
+extra_javascript: 
+  - assets/js/query-browser.mjs
+  - https://cdn.jsdelivr.net/npm/fuse.js@7.1.0
 extra_css:
   - stylesheets/extra.css
-  - https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/themes/light.css
+  - stylesheets/light.css
 copyright: <iframe src="https://status.beatymuseum.ubc.ca/badge" width="250" height="30" frameborder="0" scrolling="no"></iframe>
 extra:
   analytics:
