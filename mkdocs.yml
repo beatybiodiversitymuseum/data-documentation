@@ -41,9 +41,25 @@ nav:
       - reference/index.md
       - reference/key-reference.md
       - reference/filter-terms.md
-      - reference/saved-queries.md
-      - reference/queries.md
 
+      - Queries:
+        - reference/queries/index.md
+        - reference/queries/saved-queries.md
+        
+        - Schemas:
+          - reference/queries/index.md
+          - reference/queries/algae/index.md
+          - reference/queries/birds/index.md
+          - reference/queries/bryophytes/index.md
+          - reference/queries/entomology/index.md
+          - reference/queries/fishes/index.md
+          - reference/queries/fungi/index.md
+          - reference/queries/herpetology/index.md
+          - reference/queries/lichen/index.md
+          - reference/queries/mammals/index.md
+          - reference/queries/miv/index.md
+          - reference/queries/paleontology/index.md
+          - reference/queries/teaching/index.md
 plugins:
   - glightbox
   - search
@@ -112,7 +128,6 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 extra_javascript: 
-  - assets/js/query-browser.mjs
   - https://cdn.jsdelivr.net/npm/fuse.js@7.1.0
 extra_css:
   - stylesheets/extra.css

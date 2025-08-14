@@ -1,5 +1,5 @@
 ---
-title: "Search the database schema"
+title: "Search the Fishes Schema"
 tags:
     - queries
     - search
@@ -7,13 +7,13 @@ tags:
 icon: material/graph
 ---
 ## Introduction
-This is a quick searchable reference of the database table schema. Type in the "Search..." area below to test your search. If you want to use extended search, see the [reference below](#extended-search).
+This is a quick searchable reference of the database table schema. Type in the "Search..." area below to test your search. If you want to use extended search, see the [Extended Search reference below](#extended-search).
 
 ## Search
   <input type="text" id="searchInput" placeholder="Search...">
   <ul id="results"></ul>
 
-<script type="module" src="assets/query-browser.mjs"></script>
+<script type="module" src="/data-documentation/assets/js/query-browser.mjs"></script>
 
 ## Extended Search
 
