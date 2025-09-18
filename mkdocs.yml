@@ -60,6 +60,8 @@ nav:
           - reference/queries/miv/index.md
           - reference/queries/paleontology/index.md
           - reference/queries/teaching/index.md
+      - Mapping:
+        - map/index.html
 plugins:
   - glightbox
   - search
