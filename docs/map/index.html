@@ -3,71 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wayfinding Pathfinder Test</title>
-    <!-- Use local files or different CDN -->
+    <title>Wayfinding Pathfinder - Modular Version</title>
+    
+    <!-- External Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/deck.gl@9.0.0/dist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+    
     <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-gray: #f8f9fa;
+            --border-color: #ddd;
+            --text-color: #333;
+            --text-muted: #666;
+            --border-radius: 5px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
         }
+
+        /* Container Styles */
         .container {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
         }
+
+        /* Typography */
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: 600;
+        }
+
+        h2, h3, h4 {
+            color: var(--text-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        /* Form Styles */
         .form-group {
             margin-bottom: 20px;
         }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
         }
+
         input[type="text"] {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
             font-size: 16px;
+            transition: var(--transition);
         }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        /* Button Styles */
         button {
-            background-color: #007bff;
+            background-color: var(--primary-color);
             color: white;
             padding: 12px 24px;
             border: none;
-            border-radius: 5px;
+            border-radius: var(--border-radius);
             font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
             margin-right: 10px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        button:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--box-shadow);
         }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Result Styles */
         .result {
             margin-top: 30px;
             padding: 20px;
-            border-radius: 5px;
-            border-left: 4px solid #007bff;
-            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--light-gray);
         }
-        .error {
-            border-left-color: #dc3545;
+
+        .result.error {
+            border-left-color: var(--error-color);
             background-color: #f8d7da;
             color: #721c24;
         }
-        .success {
-            border-left-color: #28a745;
+
+        .result.success {
+            border-left-color: var(--success-color);
             background-color: #d4edda;
             color: #155724;
         }
+
+        .result.loading {
+            border-left-color: var(--info-color);
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Path Node Styles */
         .path-node {
             display: inline-block;
             margin: 5px;
@@ -75,92 +164,504 @@
             border-radius: 15px;
             font-size: 14px;
             font-weight: bold;
+            border: 2px solid transparent;
         }
-        .waypoint {
+
+        .path-node.waypoint {
             background-color: #e3f2fd;
             color: #1565c0;
+            border-color: #90caf9;
         }
-        .di_box {
+
+        .path-node.di_box {
             background-color: #fff3e0;
             color: #ef6c00;
+            border-color: #ffcc02;
         }
-        .cabinet {
+
+        .path-node.cabinet {
             background-color: #f3e5f5;
             color: #7b1fa2;
+            border-color: #ce93d8;
         }
-        .fossil {
+
+        .path-node.fossil {
             background-color: #e8f5e8;
             color: #2e7d32;
+            border-color: #a5d6a7;
         }
-        .examples {
+
+        /* Graph Statistics */
+        .graph-stats {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .node-types ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .node-types li {
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .ready-message {
             margin-top: 20px;
             padding: 15px;
-            background-color: #e9ecef;
-            border-radius: 5px;
+            background: #e7f3ff;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            font-size: 14px;
         }
+
+        /* Node Details */
+        .node-details {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .node-detail {
+            margin: 10px 0;
+            padding: 10px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+        }
+
+        .coordinates {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        /* Export Section */
+        .export-actions {
+            margin: 15px 0;
+        }
+
+        .export-button {
+            background-color: var(--success-color);
+            margin-right: 10px;
+        }
+
+        .export-button:hover {
+            background-color: #218838;
+        }
+
+        .geojson-details {
+            margin: 10px 0;
+        }
+
+        .geojson-details summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary-color);
+            padding: 5px 0;
+        }
+
+        .geojson-code {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            font-size: 12px;
+            margin-top: 10px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Examples Section */
+        .examples {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: var(--border-radius);
+        }
+
         .example-button {
             background-color: #6c757d;
             font-size: 14px;
             padding: 8px 12px;
             margin: 5px;
         }
+
         .example-button:hover {
             background-color: #545b62;
         }
-        .loading {
-            color: #007bff;
-            font-style: italic;
+
+        /* Loading Indicator */
+        .loading-indicator {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        .coordinates {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-        .autocomplete {
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-message {
+            font-weight: 500;
+        }
+
+        /* Map Container */
+        .map-section {
+            margin-top: 30px;
+        }
+
+        .map-controls {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+        }
+
+        .map-controls h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #mapStatus {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            border-left: 4px solid var(--info-color);
+        }
+
+        .status-info { border-left-color: var(--info-color); }
+        .status-success { border-left-color: var(--success-color); color: var(--success-color); }
+        .status-error { border-left-color: var(--error-color); color: var(--error-color); }
+
+        #mapContainer {
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            background: var(--light-gray);
+        }
+
+        /* Autocomplete Styles */
+        .autocomplete-wrapper,
+        .enhanced-autocomplete-wrapper {
             position: relative;
-            display: inline-block;
             width: 100%;
         }
-        .autocomplete-items {
+
+        .autocomplete-suggestions,
+        .enhanced-autocomplete-suggestions {
             position: absolute;
-            border: 1px solid #d4d4d4;
-            border-bottom: none;
-            border-top: none;
-            z-index: 99;
             top: 100%;
             left: 0;
             right: 0;
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
         }
-        .autocomplete-items div {
-            padding: 10px;
+
+        .autocomplete-item {
+            padding: 10px 12px;
             cursor: pointer;
-            background-color: #fff;
-            border-bottom: 1px solid #d4d4d4;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .autocomplete-item:hover,
+        .autocomplete-item.autocomplete-active {
+            background-color: #e3f2fd;
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .node-type-badge {
+            margin-left: 8px;
+            font-size: 12px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Enhanced Search Highlighting */
+        .search-highlight,
+        mark.search-highlight {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 1px 2px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        /* Enhanced Autocomplete Specific Styles */
+        .enhanced-autocomplete-suggestions .autocomplete-item {
+            padding: 12px 15px;
+            line-height: 1.4;
+        }
+
+        .enhanced-autocomplete-suggestions .autocomplete-item:hover {
+            background-color: #e3f2fd;
+        }
+
+        /* Keyboard Shortcuts */
+        .keyboard-shortcuts {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 15px;
+        }
+
+        .keyboard-shortcuts div {
+            margin: 2px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #mapContainer {
+                height: 300px;
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            .path-node {
+                border-width: 3px;
+            }
+            
+            button {
+                border: 2px solid currentColor;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Fallback Visualization Styles */
+        .fallback-visualization {
+            height: 100%;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .fallback-content {
+            height: 400px;
+            background: white;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fallback-message {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .fallback-path-info {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b35;
+            text-align: left;
+            margin: 10px;
+            max-width: 500px;
+        }
+
+        .fallback-path-info h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .fallback-path-info div {
+            margin: 5px 0;
             font-size: 14px;
         }
-        .autocomplete-items div:hover {
-            background-color: #e9e9e9;
-        }
-        .autocomplete-active {
-            background-color: #007bff !important;
-            color: #ffffff;
-        }
-        .fixture-type {
-            font-size: 12px;
-            color: #666;
-            margin-left: 10px;
-            font-style: italic;
-        }
-        .fixture-type.di_box { color: #ef6c00; }
-        .fixture-type.cabinet { color: #7b1fa2; }
-        .fixture-type.fossil { color: #2e7d32; }
-        .fixture-type.waypoint { color: #1e90ff; }
+    </style>
+  <script type="module" crossorigin src="/data-documentation/map/assets/main-C5yDjgw6.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗺️ Wayfinding Pathfinder</h1>
+            <p>Find optimal paths between fixtures (DI boxes, cabinets, fossil excavations) and waypoints through the wayfinding network. This modular version provides enhanced performance, testing, and maintainability.</p>
+        </header>
         
-        /* Accessibility styles */
+        <main>
+            <form id="pathfindingForm" role="form" aria-label="Wayfinding pathfinding form">
+                <!-- START -->
+                <div class="form-group">
+                    <label for="source" id="source-label">🚀 Start (Fixture or Waypoint):</label>
+                    <div class="autocomplete" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="source-label">
+                        <input 
+                            type="text" 
+                            id="source" 
+                            name="source" 
+                            placeholder="e.g., di_27_18_top or wp_001" 
+                            required 
+                            autocomplete="off"
+                            aria-describedby="source-help"
+                            aria-autocomplete="list"
+                            role="textbox"
+                        >
+                    </div>
+                    <div id="source-help" class="sr-only">Enter the starting fixture or waypoint ID. Use autocomplete suggestions for valid options.</div>
+                </div>
+
+                <!-- INTERMEDIATE WAYPOINTS -->
+                <div id="waypointsContainer">
+                    <!-- Intermediate waypoints will be added here dynamically -->
+                </div>
+
+                <!-- ADD WAYPOINT BUTTON (in the middle) -->
+                <div class="waypoint-controls">
+                    <button type="button" id="addWaypointBtn" class="add-waypoint-btn" title="Add intermediate waypoint">
+                        ➕ Add Waypoint
+                    </button>
+                    <small class="waypoint-help">Add intermediate waypoints to customize your route</small>
+                </div>
+                
+                <!-- END -->
+                <div class="form-group">
+                    <label for="target" id="target-label">🎯 End (Fixture or Waypoint):</label>
+                    <div class="autocomplete" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="target-label">
+                        <input 
+                            type="text" 
+                            id="target" 
+                            name="target" 
+                            placeholder="e.g., fossil_excavation_1 or wp_025" 
+                            required 
+                            autocomplete="off"
+                            aria-describedby="target-help"
+                            aria-autocomplete="list"
+                            role="textbox"
+                        >
+                    </div>
+                    <div id="target-help" class="sr-only">Enter the destination fixture or waypoint ID. Use autocomplete suggestions for valid options.</div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" aria-describedby="find-path-help">
+                        🔍 Find Path
+                        <span style="font-size: 12px; opacity: 0.7;">(Ctrl+Enter)</span>
+                    </button>
+                    <button type="button" id="loadGraphBtn" aria-describedby="load-graph-help">
+                        📊 Load Graph Data
+                        <span style="font-size: 12px; opacity: 0.7;">(Ctrl+Enter if not loaded)</span>
+                    </button>
+                </div>
+                <div id="find-path-help" class="sr-only">Calculate the optimal path between the source and target fixtures</div>
+                <div id="load-graph-help" class="sr-only">Load the wayfinding network data into memory for pathfinding</div>
+                <div id="toggle-mode-help" class="sr-only">Switch between single point-to-point routing and multi-point route planning</div>
+            </form>
+            
+
+                
+                <h4>Quick Examples:</h4>
+                <div role="group" aria-label="Example pathfinding scenarios">
+                    <button type="button" class="example-button" data-source="di_27_18_top" data-target="fossil_excavation_1" aria-label="Set source to DI Box di_27_18_top and target to Fossil excavation 1">DI Box → Fossil</button>
+                    <button type="button" class="example-button" data-source="col_1_cab_01" data-target="di_05_01_top" aria-label="Set source to Cabinet col_1_cab_01 and target to DI Box di_05_01_top">Cabinet → DI Box</button>
+                    <button type="button" class="example-button" data-source="fossil_excavation_1" data-target="col_2_cab_15" aria-label="Set source to Fossil excavation 1 and target to Cabinet col_2_cab_15">Fossil → Cabinet</button>
+                    <button type="button" class="example-button" data-source="wp_001" data-target="wp_025" aria-label="Set source to Waypoint wp_001 and target to Waypoint wp_025">Waypoint → Waypoint</button>
+                    <button type="button" class="example-button" data-source="wp_010" data-target="di_27_18_top" aria-label="Set source to Waypoint wp_010 and target to DI Box di_27_18_top">Waypoint → DI Box</button>
+                </div>
+
+            </section>
+            
+        </main>
+    </div>
+
+    <!-- Map Visualization Section -->
+    <div class="container map-section">
+        <div class="map-controls">
+            <h3>🗺️ Route Visualization</h3>
+            <div id="mapStatus" role="status" aria-live="polite" class="status-info">
+                <strong>Status:</strong> <span id="statusText">Initializing...</span>
+            </div>
+            <div role="group" aria-label="Map controls">
+                <button id="showFixturesBtn" onclick="app?.toggleLayer('fixtures')" aria-pressed="true" aria-describedby="fixtures-help">
+                    👁️ Toggle Fixtures
+                </button>
+                <button id="showWaypointsBtn" onclick="app?.toggleLayer('waypoints')" aria-pressed="false" aria-describedby="waypoints-help">
+                    🔵 Toggle Waypoints
+                </button>
+                <button id="resetMapBtn" onclick="app?.resetMapView()" aria-describedby="reset-help">
+                    🎯 Reset View
+                </button>
+            </div>
+            <div id="fixtures-help" class="sr-only">Toggle visibility of fixtures on the map</div>
+            <div id="waypoints-help" class="sr-only">Toggle visibility of waypoints on the map</div>
+            <div id="reset-help" class="sr-only">Reset the map to the default view</div>
+        </div>
+        <div id="mapContainer" role="img" aria-label="Interactive map showing wayfinding network and calculated paths"></div>
+    </div>
+
+    <div id="result" role="region" aria-live="polite" aria-label="Pathfinding results"></div>
+
+
+    <!-- Application Script -->
+    
+    <!-- Screen Reader Only Content -->
+    <div class="sr-only" aria-live="polite" id="sr-announcements"></div>
+    
+    <style>
         .sr-only {
             position: absolute;
             width: 1px;
@@ -172,1236 +673,6 @@
             white-space: nowrap;
             border: 0;
         }
-        
-        /* Focus styles for better accessibility */
-        input:focus, button:focus {
-            outline: 2px solid #007bff;
-            outline-offset: 2px;
-        }
-        
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .path-node {
-                border: 2px solid currentColor;
-            }
-            button {
-                border: 2px solid currentColor;
-            }
-        }
-        
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            .loading div {
-                animation: none;
-            }
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        /* Map container styles */
-        #mapContainer {
-            margin-top: 30px;
-            height: 500px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        #mapContainer .maplibregl-map {
-            height: 100%;
-        }
-        
-        .map-controls {
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        
-        .map-controls button {
-            margin-right: 10px;
-            margin-bottom: 5px;
-        }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🗺️ Wayfinding Pathfinder</h1>
-        <p>Find paths between fixtures (DI boxes, cabinets, fossil excavations) and waypoints through the wayfinding network.</p>
-        
-        <form id="pathfindingForm" role="form" aria-label="Wayfinding pathfinding form">
-            <div class="form-group">
-                <label for="source" id="source-label">Source ID (Fixture or Waypoint):</label>
-                <div class="autocomplete" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="source-label">
-                    <input 
-                        type="text" 
-                        id="source" 
-                        name="source" 
-                        placeholder="e.g., di_27_18_top or wp_001" 
-                        required 
-                        autocomplete="off"
-                        aria-describedby="source-help"
-                        aria-autocomplete="list"
-                        role="textbox"
-                    >
-                </div>
-                <div id="source-help" class="sr-only">Enter the starting fixture or waypoint ID. Use autocomplete suggestions for valid options.</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="target" id="target-label">Target ID (Fixture or Waypoint):</label>
-                <div class="autocomplete" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="target-label">
-                    <input 
-                        type="text" 
-                        id="target" 
-                        name="target" 
-                        placeholder="e.g., fossil_excavation_1 or wp_025" 
-                        required 
-                        autocomplete="off"
-                        aria-describedby="target-help"
-                        aria-autocomplete="list"
-                        role="textbox"
-                    >
-                </div>
-                <div id="target-help" class="sr-only">Enter the destination fixture or waypoint ID. Use autocomplete suggestions for valid options.</div>
-            </div>
-            
-            <button type="submit" aria-describedby="find-path-help">Find Path <span style="font-size: 12px; opacity: 0.7;">(Ctrl+Enter)</span></button>
-            <button type="button" id="loadGraphBtn" aria-describedby="load-graph-help">Load Graph Data <span style="font-size: 12px; opacity: 0.7;">(Ctrl+Enter if not loaded)</span></button>
-            <div id="find-path-help" class="sr-only">Calculate the optimal path between the source and target fixtures</div>
-            <div id="load-graph-help" class="sr-only">Load the wayfinding network data into memory for pathfinding</div>
-        </form>
-        
-        <div class="examples">
-            <h3>Example Fixture IDs:</h3>
-            <p><strong>DI Boxes:</strong> di_27_18_top, di_05_01_top, di_12_08_bottom</p>
-            <p><strong>Cabinets:</strong> col_1_cab_01, col_2_cab_15, col_3_cab_22</p>
-            <p><strong>Fossils:</strong> fossil_excavation_1, fossil_excavation_2, fossil_excavation_9</p>
-            <p><strong>Waypoints:</strong> wp_001, wp_010, wp_025, wp_049</p>
-            
-            <h4>Quick Examples:</h4>
-            <div role="group" aria-label="Example pathfinding scenarios">
-                <button class="example-button" onclick="setExample('di_27_18_top', 'fossil_excavation_1')" aria-label="Set source to DI Box di_27_18_top and target to Fossil excavation 1">DI Box → Fossil</button>
-                <button class="example-button" onclick="setExample('col_1_cab_01', 'di_05_01_top')" aria-label="Set source to Cabinet col_1_cab_01 and target to DI Box di_05_01_top">Cabinet → DI Box</button>
-                <button class="example-button" onclick="setExample('fossil_excavation_1', 'col_2_cab_15')" aria-label="Set source to Fossil excavation 1 and target to Cabinet col_2_cab_15">Fossil → Cabinet</button>
-                <button class="example-button" onclick="setExample('wp_001', 'wp_025')" aria-label="Set source to Waypoint wp_001 and target to Waypoint wp_025">Waypoint → Waypoint</button>
-                <button class="example-button" onclick="setExample('wp_010', 'di_27_18_top')" aria-label="Set source to Waypoint wp_010 and target to DI Box di_27_18_top">Waypoint → DI Box</button>
-            </div>
-            
-            <h4>⌨️ Keyboard Shortcuts:</h4>
-            <div style="font-size: 12px; color: #666; margin-top: 10px;">
-                <div><strong>Ctrl+Enter</strong> (or Cmd+Enter): Find path or load graph</div>
-                <div><strong>Escape</strong>: Clear results</div>
-                <div><strong>Tab</strong>: Smart navigation between fields</div>
-            </div>
-        </div>
-        
-        <div id="result" role="region" aria-live="polite" aria-label="Pathfinding results"></div>
-        
-        <!-- Map Visualization Section -->
-        <div class="map-controls">
-            <h3>🗺️ Route Visualization</h3>
-            <div id="mapStatus" role="status" aria-live="polite" style="margin-bottom: 10px; padding: 10px; background: #f8f9fa; border-radius: 5px; font-size: 14px;">
-                <strong>Status:</strong> <span id="statusText">Loading...</span>
-            </div>
-            <div role="group" aria-label="Map controls">
-                <button id="showFixturesBtn" onclick="toggleFixtures()" aria-pressed="true" aria-describedby="fixtures-help">Hide Fixtures</button>
-                <button id="resetMapBtn" onclick="resetMapView()" aria-describedby="reset-help">Reset View</button>
-            </div>
-            <div id="fixtures-help" class="sr-only">Toggle visibility of fixtures on the map</div>
-            <div id="reset-help" class="sr-only">Reset the map to the default view</div>
-        </div>
-        <div id="mapContainer" role="img" aria-label="Interactive map showing wayfinding network and calculated paths"></div>
-    </div>
-
-    <script src="wayfinding_pathfinder.js" ></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            updateStatus('DOM loaded, starting initialization...', 'info');
-        });
-        
-        let graphData = null;
-        let isLoading = false;
-        let fixtureNodes = [];
-
-        // Autocomplete functionality
-        function initAutocomplete() {
-            if (!graphData) return;
-            
-            // Get all nodes (including waypoints) for searchable items
-            fixtureNodes = graphData.nodes.sort();
-
-            // Initialize autocomplete for both inputs
-            setupAutocomplete(document.getElementById('source'));
-            setupAutocomplete(document.getElementById('target'));
-        }
-
-        function setupAutocomplete(inputElement) {
-            let currentFocus = -1;
-
-            inputElement.addEventListener('input', function(e) {
-                const value = this.value;
-                closeAllLists();
-                
-                if (!value) return false;
-                
-                currentFocus = -1;
-                
-                const autocompleteList = document.createElement('div');
-                autocompleteList.setAttribute('id', this.id + '-autocomplete-list');
-                autocompleteList.setAttribute('class', 'autocomplete-items');
-                this.parentNode.appendChild(autocompleteList);
-                
-                let matchCount = 0;
-                const maxMatches = 50; // Limit to prevent performance issues
-                
-                for (let i = 0; i < fixtureNodes.length && matchCount < maxMatches; i++) {
-                    const nodeId = fixtureNodes[i];
-                    const nodeType = graphData.nodeTypes.get(nodeId);
-                    
-                    if (nodeId.toLowerCase().includes(value.toLowerCase())) {
-                        const item = document.createElement('div');
-                        
-                        // Highlight matching text
-                        const matchIndex = nodeId.toLowerCase().indexOf(value.toLowerCase());
-                        const beforeMatch = nodeId.substring(0, matchIndex);
-                        const match = nodeId.substring(matchIndex, matchIndex + value.length);
-                        const afterMatch = nodeId.substring(matchIndex + value.length);
-                        
-                        item.innerHTML = `
-                            ${beforeMatch}<strong>${match}</strong>${afterMatch}
-                            <span class="fixture-type ${nodeType}">(${nodeType.replace('_', ' ')})</span>
-                        `;
-                        
-                        item.addEventListener('click', function(e) {
-                            inputElement.value = nodeId;
-                            closeAllLists();
-                        });
-                        
-                        autocompleteList.appendChild(item);
-                        matchCount++;
-                    }
-                }
-                
-                if (matchCount === 0) {
-                    const item = document.createElement('div');
-                    item.innerHTML = '<em>No matches found</em>';
-                    item.style.color = '#666';
-                    item.style.fontStyle = 'italic';
-                    autocompleteList.appendChild(item);
-                }
-            });
-
-            inputElement.addEventListener('keydown', function(e) {
-                let autocompleteList = document.getElementById(this.id + '-autocomplete-list');
-                if (autocompleteList) {
-                    const items = autocompleteList.getElementsByTagName('div');
-                    
-                    if (e.keyCode === 40) { // DOWN arrow
-                        currentFocus++;
-                        addActive(items);
-                        e.preventDefault();
-                    } else if (e.keyCode === 38) { // UP arrow
-                        currentFocus--;
-                        addActive(items);
-                        e.preventDefault();
-                    } else if (e.keyCode === 13) { // ENTER
-                        e.preventDefault();
-                        if (currentFocus > -1 && items[currentFocus]) {
-                            items[currentFocus].click();
-                        }
-                    } else if (e.keyCode === 27) { // ESCAPE
-                        closeAllLists();
-                    }
-                }
-            });
-
-            function addActive(items) {
-                if (!items) return false;
-                removeActive(items);
-                if (currentFocus >= items.length) currentFocus = 0;
-                if (currentFocus < 0) currentFocus = items.length - 1;
-                items[currentFocus].classList.add('autocomplete-active');
-            }
-
-            function removeActive(items) {
-                for (let i = 0; i < items.length; i++) {
-                    items[i].classList.remove('autocomplete-active');
-                }
-            }
-        }
-
-        function closeAllLists(except) {
-            const items = document.getElementsByClassName('autocomplete-items');
-            for (let i = 0; i < items.length; i++) {
-                if (except !== items[i] && except !== items[i].previousElementSibling) {
-                    items[i].parentNode.removeChild(items[i]);
-                }
-            }
-        }
-
-        // Close autocomplete when clicking outside
-        document.addEventListener('click', function(e) {
-            closeAllLists(e.target);
-        });
-
-        // Global variable to store current path details for export
-        let currentPathDetails = null;
-
-        // Generate GeoJSON from path details
-        function generatePathGeoJSON(pathDetails) {
-            if (!pathDetails) return null;
-
-            const features = [];
-            const { nodes, path } = pathDetails;
-
-            // Create LineString feature for the path
-            const pathCoordinates = nodes
-                .filter(node => node.coordinates)
-                .map(node => node.coordinates);
-
-            if (pathCoordinates.length > 1) {
-                features.push({
-                    type: "Feature",
-                    properties: {
-                        name: `Path: ${path[0]} to ${path[path.length - 1]}`,
-                        description: `Route from ${path[0]} to ${path[path.length - 1]} via waypoints`,
-                        path_type: "fixture_to_fixture",
-                        nodes: path,
-                        stroke: "#ff6b35",
-                        "stroke-width": 4,
-                        "stroke-opacity": 0.8
-                    },
-                    geometry: {
-                        type: "LineString",
-                        coordinates: pathCoordinates
-                    }
-                });
-            }
-
-            // Create Point features for each node
-            nodes.forEach((node, index) => {
-                if (!node.coordinates) return;
-
-                let markerColor = "#666666";
-                let markerSymbol = "circle";
-                let markerSize = "small";
-
-                switch (node.type) {
-                    case "di_box":
-                        markerColor = "#ff8c00";
-                        markerSymbol = "industrial";
-                        markerSize = "medium";
-                        break;
-                    case "cabinet":
-                        markerColor = "#7b1fa2";
-                        markerSymbol = "warehouse";
-                        markerSize = "medium";
-                        break;
-                    case "fossil":
-                        markerColor = "#32cd32";
-                        markerSymbol = "monument";
-                        markerSize = "medium";
-                        break;
-                    case "waypoint":
-                        markerColor = "#1e90ff";
-                        markerSymbol = "circle";
-                        markerSize = "small";
-                        break;
-                }
-
-                features.push({
-                    type: "Feature",
-                    properties: {
-                        name: node.id,
-                        type: node.type,
-                        "marker-color": markerColor,
-                        "marker-size": markerSize,
-                        "marker-symbol": markerSymbol,
-                        order: index + 1
-                    },
-                    geometry: {
-                        type: "Point",
-                        coordinates: node.coordinates
-                    }
-                });
-            });
-
-            return {
-                type: "FeatureCollection",
-                features: features
-            };
-        }
-
-        // Copy GeoJSON to clipboard
-        async function copyPathGeoJSON() {
-            if (!currentPathDetails) {
-                alert('No path data available to copy');
-                return;
-            }
-
-            const geojson = generatePathGeoJSON(currentPathDetails);
-            const geojsonString = JSON.stringify(geojson, null, 2);
-
-            try {
-                await navigator.clipboard.writeText(geojsonString);
-                
-                // Show success feedback
-                const button = event.target;
-                const originalText = button.innerHTML;
-                button.innerHTML = '✅ Copied!';
-                button.style.backgroundColor = '#28a745';
-                
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.style.backgroundColor = '#28a745';
-                }, 2000);
-                
-            } catch (err) {
-                console.error('Failed to copy to clipboard:', err);
-                
-                // Fallback: select the text in the pre element
-                const preElement = document.getElementById('geojsonCode');
-                if (preElement) {
-                    const range = document.createRange();
-                    range.selectNodeContents(preElement);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    alert('GeoJSON selected. Press Ctrl+C (or Cmd+C) to copy.');
-                } else {
-                    alert('Copy failed. Please manually copy the GeoJSON from the code section below.');
-                }
-            }
-        }
-
-        // Download GeoJSON as file
-        function downloadPathGeoJSON() {
-            if (!currentPathDetails) {
-                alert('No path data available to download');
-                return;
-            }
-
-            const geojson = generatePathGeoJSON(currentPathDetails);
-            const geojsonString = JSON.stringify(geojson, null, 2);
-            
-            const blob = new Blob([geojsonString], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `path_${currentPathDetails.path[0]}_to_${currentPathDetails.path[currentPathDetails.path.length - 1]}.geojson`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            // Show success feedback
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '✅ Downloaded!';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-            }, 2000);
-        }
-
-        function setExample(source, target) {
-            document.getElementById('source').value = source;
-            document.getElementById('target').value = target;
-        }
-
-        function showResult(content, type = 'result') {
-            const resultDiv = document.getElementById('result');
-            resultDiv.className = `result ${type}`;
-            resultDiv.innerHTML = content;
-        }
-
-        function showLoading(message) {
-            showResult(`<div class="loading">${message}</div>`);
-        }
-
-        function formatPathResult(pathDetails) {
-            if (!pathDetails) {
-                return '<h3>No path found!</h3><p>There is no route between the specified fixtures through the waypoint network.</p>';
-            }
-
-            const { nodes, summary, path } = pathDetails;
-            
-            let html = `
-                <h3>✅ Path Found!</h3>
-                <p><strong>Route Length:</strong> ${path.length} nodes</p>
-                <p><strong>Waypoints Used:</strong> ${summary.waypointsUsed}</p>
-                <p><strong>From:</strong> ${summary.start.id} (${summary.start.type})</p>
-                <p><strong>To:</strong> ${summary.end.id} (${summary.end.type})</p>
-                
-                <h4>Full Path:</h4>
-                <div style="margin: 15px 0;">
-            `;
-            
-            nodes.forEach((node, index) => {
-                html += `<span class="path-node ${node.type}">${node.id}</span>`;
-                if (index < nodes.length - 1) {
-                    html += ' → ';
-                }
-            });
-            
-            html += `</div>`;
-            
-            // Show coordinates if available
-            html += `<h4>Node Details:</h4><div style="max-height: 300px; overflow-y: auto;">`;
-            nodes.forEach(node => {
-                html += `
-                    <div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 5px;">
-                        <strong>${node.id}</strong> (${node.type})
-                        ${node.coordinates ? `<div class="coordinates">Coordinates: [${node.coordinates[0].toFixed(6)}, ${node.coordinates[1].toFixed(6)}]</div>` : ''}
-                    </div>
-                `;
-            });
-            html += `</div>`;
-            
-            // Add GeoJSON export section
-            html += `
-                <h4>📄 Export as GeoJSON:</h4>
-                <div style="margin: 15px 0;">
-                    <button onclick="copyPathGeoJSON()" style="background-color: #28a745; margin-right: 10px;">📋 Copy GeoJSON</button>
-                    <button onclick="downloadPathGeoJSON()" style="background-color: #17a2b8;">💾 Download GeoJSON</button>
-                </div>
-                <details style="margin: 10px 0;">
-                    <summary style="cursor: pointer; font-weight: bold; color: #007bff;">📝 View GeoJSON Code</summary>
-                    <pre id="geojsonCode" style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 12px; margin-top: 10px;">${JSON.stringify(generatePathGeoJSON(pathDetails), null, 2)}</pre>
-                </details>
-            `;
-            
-            return html;
-        }
-
-        async function loadGraph() {
-            if (isLoading) return;
-            
-            isLoading = true;
-            showLoading(`
-                <div class="loading">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <div style="width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #007bff; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 10px;"></div>
-                        Loading wayfinding graph data...
-                    </div>
-                    <div style="font-size: 12px; color: #666;">
-                        This may take a moment for large datasets...
-                    </div>
-                </div>
-            `);
-            
-            try {
-                updateStatusWithData('Loading wayfinding network...', 'info');
-                const geojsonData = await loadWayfindingData('./geojson/wayfinding.geojson');
-                graphData = buildGraphFromGeoJSON(geojsonData);
-                
-                // Load fixture polygons from separate files
-                try {
-                    updateStatusWithData('Loading fixture polygons...', 'info');
-                    const fixturePolygons = new Map();
-                    const fixtureFiles = [
-                        './geojson/cabinet_fixtures.geojson',
-                        './geojson/di_box_fixtures.geojson', 
-                        './geojson/fossil_excavation_fixtures.geojson',
-                        './geojson/fixture.geojson'
-                    ];
-
-                    for (const filePath of fixtureFiles) {
-                        try {
-                            const response = await fetch(filePath);
-                            const data = await response.json();
-                            
-                            for (const feature of data.features || []) {
-                                if (feature.geometry.type === 'Polygon' && feature.properties?.alt_name) {
-                                    const altName = feature.properties.alt_name;
-                                    fixturePolygons.set(altName, feature.geometry.coordinates[0]);
-                                }
-                            }
-                        } catch (error) {
-                            console.warn(`Could not load fixture file ${filePath}:`, error);
-                        }
-                    }
-                    
-                    graphData.fixturePolygons = fixturePolygons;
-                } catch (error) {
-                    console.error('Error loading fixture polygons:', error);
-                }
-                
-                // Calculate statistics for display
-                const waypointCount = Array.from(graphData.nodeTypes.values()).filter(t => t === 'waypoint').length;
-                const diBoxCount = Array.from(graphData.nodeTypes.values()).filter(t => t === 'di_box').length;
-                const cabinetCount = Array.from(graphData.nodeTypes.values()).filter(t => t === 'cabinet').length;
-                const fossilCount = Array.from(graphData.nodeTypes.values()).filter(t => t === 'fossil').length;
-                const fixtureCount = diBoxCount + cabinetCount + fossilCount;
-                const polygonCount = graphData.fixturePolygons ? graphData.fixturePolygons.size : 0;
-                
-                showResult(`
-                    <h3>✅ Graph Loaded Successfully!</h3>
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                        <h4 style="margin: 0 0 10px 0; color: #333;">📊 Network Statistics</h4>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 14px;">
-                            <div><strong>Total Nodes:</strong> ${graphData.nodes.length.toLocaleString()}</div>
-                            <div><strong>Fixtures:</strong> ${fixtureCount.toLocaleString()}</div>
-                            <div><strong>Waypoints:</strong> ${waypointCount.toLocaleString()}</div>
-                            <div><strong>Polygons:</strong> ${polygonCount.toLocaleString()}</div>
-                        </div>
-                    </div>
-                    <p><strong>Node Types Breakdown:</strong></p>
-                    <ul>
-                        <li>🔵 Waypoints: ${waypointCount.toLocaleString()} (navigation grid points)</li>
-                        <li>🟠 DI Boxes: ${diBoxCount.toLocaleString()} (Display drawers)</li>
-                        <li>🟣 Cabinets: ${cabinetCount.toLocaleString()} (storage/equipment)</li>
-                        <li>🟢 Fossil Excavations: ${fossilCount.toLocaleString()} (dig sites)</li>
-                    </ul>
-                    <p style="margin-top: 20px; padding: 10px; background: #e7f3ff; border-radius: 5px; border-left: 4px solid #007bff;">
-                        <strong>💡 Ready to use!</strong> Start typing in the input fields for autocomplete suggestions, or use the quick example buttons below.
-                    </p>
-                `, 'success');
-                
-                // Update status with detailed data information
-                updateStatusWithData('Graph loaded successfully!', 'success', {
-                    nodes: graphData.nodes.length,
-                    fixtures: fixtureCount,
-                    waypoints: waypointCount,
-                    polygons: polygonCount
-                });
-                
-                // Initialize autocomplete after graph is loaded
-                initAutocomplete();
-                
-            } catch (error) {
-                console.error('Error loading graph:', error);
-                updateStatusWithData(`Error loading graph: ${error.message}`, 'error');
-                showResult(`
-                    <h3>❌ Error Loading Graph</h3>
-                    <p>Failed to load wayfinding data: ${error.message}</p>
-                    <p>Please check that:</p>
-                    <ul>
-                        <li>The wayfinding.geojson file is accessible</li>
-                        <li>You're running this from a web server (not file://)</li>
-                        <li>All required GeoJSON files are present</li>
-                    </ul>
-                `, 'error');
-            }
-            
-            isLoading = false;
-        }
-
-        async function findPathHandler(event) {
-            event.preventDefault();
-            
-            if (!graphData) {
-                showResult(`
-                    <h3>⚠️ Graph Not Loaded</h3>
-                    <p>Please load the graph data first by clicking "Load Graph Data".</p>
-                `, 'error');
-                return;
-            }
-            
-            const source = document.getElementById('source').value.trim();
-            const target = document.getElementById('target').value.trim();
-            
-            // Enhanced input validation
-            if (!source) {
-                showResult(`
-                    <h3>⚠️ Missing Source</h3>
-                    <p>Please enter a source fixture ID. Use the autocomplete suggestions or try examples like:</p>
-                    <ul>
-                        <li><code>di_27_18_top</code> (DI Box)</li>
-                        <li><code>col_1_cab_01</code> (Cabinet)</li>
-                        <li><code>fossil_excavation_1</code> (Fossil)</li>
-                        <li><code>wp_001</code> (Waypoint)</li>
-                    </ul>
-                `, 'error');
-                document.getElementById('source').focus();
-                return;
-            }
-            
-            if (!target) {
-                showResult(`
-                    <h3>⚠️ Missing Target</h3>
-                    <p>Please enter a target fixture ID. Use the autocomplete suggestions or try examples like:</p>
-                    <ul>
-                        <li><code>di_27_18_top</code> (DI Box)</li>
-                        <li><code>col_1_cab_01</code> (Cabinet)</li>
-                        <li><code>fossil_excavation_1</code> (Fossil)</li>
-                        <li><code>wp_001</code> (Waypoint)</li>
-                    </ul>
-                `, 'error');
-                document.getElementById('target').focus();
-                return;
-            }
-            
-            if (source === target) {
-                showResult(`
-                    <h3>⚠️ Same Source and Target</h3>
-                    <p>Source and target fixtures cannot be the same. Please select different fixtures.</p>
-                `, 'error');
-                return;
-            }
-            
-            // Show loading indicator with progress
-            showLoading(`
-                <div class="loading">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <div style="width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid #007bff; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 10px;"></div>
-                        Finding path from <strong>${source}</strong> to <strong>${target}</strong>...
-                    </div>
-                    <div style="font-size: 12px; color: #666;">
-                        Searching through ${graphData.nodes.length} nodes in the wayfinding network...
-                    </div>
-                </div>
-                <style>
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                </style>
-            `);
-            
-            try {
-                // Get fixture nodes for better error messages
-                const fixtureNodes = graphData.nodes.filter(nodeId => graphData.nodeTypes.get(nodeId) !== 'waypoint');
-                
-                // Use the enhanced pathfinding with better error handling
-                const path = findPath(source, target, graphData.adjacencyList, graphData.nodeTypes);
-                const pathDetails = getPathDetails(path, graphData.nodeTypes, graphData.nodeCoordinates);
-                
-                if (pathDetails) {
-                    // Store path details for export functionality
-                    currentPathDetails = pathDetails;
-                    showResult(formatPathResult(pathDetails), 'success');
-                } else {
-                    showResult(`
-                        <h3>❌ No Path Found</h3>
-                        <p>Could not find a route from <strong>${source}</strong> to <strong>${target}</strong>.</p>
-                        <p>This might happen if:</p>
-                        <ul>
-                            <li>The fixtures are in disconnected parts of the network</li>
-                            <li>There are no waypoints connecting the fixtures</li>
-                            <li>The network structure has gaps</li>
-                        </ul>
-                        <p>Try selecting different fixtures or check the network connectivity.</p>
-                    `, 'error');
-                }
-                
-            } catch (error) {
-                console.error('Pathfinding error:', error);
-                showResult(`
-                    <h3>❌ Pathfinding Error</h3>
-                    <p><strong>Error:</strong> ${error.message}</p>
-                    <p>Please check your input and try again.</p>
-                `, 'error');
-            }
-        }
-
-        // Keyboard shortcuts
-        function setupKeyboardShortcuts() {
-            document.addEventListener('keydown', function(e) {
-                // Ctrl/Cmd + Enter to find path
-                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-                    e.preventDefault();
-                    if (graphData) {
-                        findPathHandler(e);
-                    } else {
-                        loadGraph();
-                    }
-                }
-                
-                // Escape to clear results
-                if (e.key === 'Escape') {
-                    const resultDiv = document.getElementById('result');
-                    if (resultDiv.innerHTML.trim()) {
-                        resultDiv.innerHTML = '';
-                        resultDiv.className = 'result';
-                    }
-                }
-                
-                // Tab navigation enhancement
-                if (e.key === 'Tab') {
-                    const activeElement = document.activeElement;
-                    if (activeElement.id === 'source' && e.shiftKey === false) {
-                        // Moving forward from source - focus target if empty
-                        const target = document.getElementById('target');
-                        if (!target.value.trim()) {
-                            e.preventDefault();
-                            target.focus();
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Enhanced status display with data size information
-        function updateStatusWithData(message, type = 'info', dataInfo = null) {
-            const statusText = document.getElementById('statusText');
-            if (statusText) {
-                let statusHTML = message;
-                
-                if (dataInfo) {
-                    statusHTML += `<br><small style="color: #666; margin-top: 5px; display: block;">
-                        📊 <strong>Data:</strong> ${dataInfo.nodes} nodes, ${dataInfo.fixtures} fixtures, ${dataInfo.waypoints} waypoints
-                        ${dataInfo.polygons ? `, ${dataInfo.polygons} polygons` : ''}
-                    </small>`;
-                }
-                
-                statusText.innerHTML = statusHTML;
-                statusText.style.color = type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#007bff';
-            }
-        }
-
-        // Event listeners
-        document.getElementById('pathfindingForm').addEventListener('submit', findPathHandler);
-        document.getElementById('loadGraphBtn').addEventListener('click', loadGraph);
-        
-        // Setup keyboard shortcuts
-        setupKeyboardShortcuts();
-        
-        // Auto-load graph on page load
-        window.addEventListener('load', function() {
-            // console.log('Window loaded, calling loadGraph...');
-            loadGraph();
-        });
-
-        // Map and Deck.gl variables
-        let map = null;
-        let deckOverlay = null;
-        let waypointsVisible = false; // Hide waypoints by default
-        let fixturesVisible = true;
-        let currentPathData = null;
-
-        // Update status display
-        function updateStatus(message, type = 'info') {
-            const statusText = document.getElementById('statusText');
-            if (statusText) {
-                statusText.textContent = message;
-                statusText.style.color = type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#007bff';
-            }
-        }
-
-        // Viewport debugging
-        function logViewport() {
-            // if (map) {
-            //     const center = map.getCenter();
-            //     const zoom = map.getZoom();
-            //     const bearing = map.getBearing();
-            //     const pitch = map.getPitch();
-                
-            //     console.log('=== VIEWPORT DEBUG ===');
-            //     console.log(`Center: [${center.lng.toFixed(6)}, ${center.lat.toFixed(6)}]`);
-            //     console.log(`Zoom: ${zoom.toFixed(2)}`);
-            //     console.log(`Bearing: ${bearing.toFixed(1)}°`);
-            //     console.log(`Pitch: ${pitch.toFixed(1)}°`);
-            //     console.log('=====================');
-            // }
-        }
-
-        // Set viewport from debug values
-        function setViewport(center, zoom, bearing = 0, pitch = 45) {
-            if (map) {
-                map.flyTo({
-                    center: center,
-                    zoom: zoom,
-                    bearing: bearing,
-                    pitch: pitch
-                });
-                console.log('Viewport updated to:', { center, zoom, bearing, pitch });
-            }
-        }
-
-        // Initialize map when graph is loaded
-        function initializeMap() {
-            if (map) return; // Already initialized
-            
-            updateStatus('Checking dependencies...', 'info');
-            
-            // Check if dependencies are loaded
-            if (typeof maplibregl === 'undefined') {
-                updateStatus('MapLibre GL not available - using fallback', 'error');
-                showFallbackVisualization();
-                return;
-            }
-            
-            try {
-                updateStatus('Creating map instance...', 'info');
-                // Create map instance with Carto Positron world map style
-                map = new maplibregl.Map({
-                    container: 'mapContainer',
-                    style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-                    center: [-123.250617, 49.263428],
-                    zoom: 20,
-                    pitch: 45,
-                    bearing: 0
-                });
-
-                // Add deck.gl overlay if available
-                if (typeof deck !== 'undefined') {
-                    deckOverlay = new deck.MapboxOverlay({
-                        interleaved: true
-                    });
-                    map.addControl(deckOverlay);
-                }
-                
-                map.addControl(new maplibregl.NavigationControl(), 'top-left');
-
-                map.on('load', () => {
-                    updateStatus('Map loaded successfully!', 'success');
-                    updateMapLayers();
-                });
-
-                // Add viewport debugging on move events
-                map.on('moveend', logViewport);
-                map.on('zoomend', logViewport);
-                map.on('rotateend', logViewport);
-                map.on('pitchend', logViewport);
-
-                map.on('error', (e) => {
-                    console.error('Map error:', e);
-                    showFallbackVisualization();
-                });
-
-            } catch (error) {
-                console.error('Error initializing map:', error);
-                updateStatus(`Map initialization failed: ${error.message}`, 'error');
-                showFallbackVisualization();
-            }
-        }
-
-        // Fallback visualization using simple HTML/CSS
-        function showFallbackVisualization() {
-            const container = document.getElementById('mapContainer');
-            container.innerHTML = `
-                <div style="height: 100%; background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); 
-                           border-radius: 10px; padding: 20px; text-align: center; position: relative;">
-                    <h3 style="margin: 0 0 20px 0; color: #333;">🗺️ Route Visualization</h3>
-                    <div id="fallbackMap" style="height: 400px; background: white; border-radius: 8px; 
-                                               position: relative; overflow: hidden; border: 2px solid #ddd;">
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                                   color: #666; font-size: 14px;">
-                            Map visualization will appear here when a path is calculated
-                        </div>
-                    </div>
-                    <div style="margin-top: 15px; font-size: 12px; color: #888;">
-                        Interactive map requires external libraries. Path data will be shown above.
-                    </div>
-                </div>
-            `;
-        }
-
-        // Update deck.gl layers
-        function updateMapLayers() {
-            if (!graphData) {
-                return;
-            }
-
-            // If deck.gl is not available, show fallback visualization
-            if (!deckOverlay) {
-                updateFallbackVisualization();
-                return;
-            }
-
-            const layers = [];
-
-            // Add waypoints layer
-            if (waypointsVisible) {
-                const waypointData = graphData.nodes
-                    .filter(nodeId => graphData.nodeTypes.get(nodeId) === 'waypoint')
-                    .map(nodeId => ({
-                        position: graphData.nodeCoordinates.get(nodeId),
-                        name: nodeId,
-                        type: 'waypoint'
-                    }));
-
-                layers.push(new deck.ScatterplotLayer({
-                    id: 'waypoints',
-                    data: waypointData,
-                    pickable: true,
-                    opacity: 0.8,
-                    stroked: true,
-                    filled: true,
-                    radiusScale: 6,
-                    radiusMinPixels: 2,
-                    radiusMaxPixels: 8,
-                    lineWidthMinPixels: 1,
-                    getPosition: d => d.position,
-                    getRadius: d => 3,
-                    getFillColor: [30, 144, 255, 180], // Blue
-                    getLineColor: [0, 0, 139, 255], // Dark blue
-                    updateTriggers: {
-                        getPosition: currentPathData
-                    }
-                }));
-            }
-
-            // Add fixtures layer as polygons
-            if (fixturesVisible) {
-                const fixturePolygonData = [];
-                const fixturePointData = [];
-                
-                graphData.nodes
-                    .filter(nodeId => graphData.nodeTypes.get(nodeId) !== 'waypoint')
-                    .forEach(nodeId => {
-                        const type = graphData.nodeTypes.get(nodeId);
-                        let color = [128, 128, 128, 200]; // Default gray
-                        
-                        switch (type) {
-                            case 'di_box':
-                                color = [255, 140, 0, 120]; // Light orange
-                                break;
-                            case 'cabinet':
-                                color = [123, 31, 162, 120]; // Light purple
-                                break;
-                            case 'fossil':
-                                color = [50, 205, 50, 120]; // Light green
-                                break;
-                        }
-                        
-                        // Check if we have polygon data for this fixture
-                        const polygon = graphData.fixturePolygons?.get(nodeId);
-                        if (polygon) {
-                            fixturePolygonData.push({
-                                polygon: polygon,
-                                name: nodeId,
-                                type: type,
-                                color: color
-                            });
-                        } else {
-                            // Fallback to point for fixtures without polygon data
-                            const position = graphData.nodeCoordinates.get(nodeId);
-                            if (position) {
-                                fixturePointData.push({
-                                    position: position,
-                                    name: nodeId,
-                                    type: type,
-                                    color: color
-                                });
-                            }
-                        }
-                    });
-
-                // Add polygon layer for fixtures with polygon data
-                if (fixturePolygonData.length > 0) {
-                    layers.push(new deck.PolygonLayer({
-                        id: 'fixture-polygons',
-                        data: fixturePolygonData,
-                        pickable: true,
-                        filled: true,
-                        stroked: true,
-                        lineWidthMinPixels: 1,
-                        lineWidthMaxPixels: 2,
-                        getPolygon: d => d.polygon,
-                        getFillColor: d => d.color,
-                        getLineColor: (d) => {
-                            // Use slightly darker version of fill color for stroke
-                            const fillColor = d.color;
-                            return [fillColor[0] * 0.7, fillColor[1] * 0.7, fillColor[2] * 0.7, 200];
-                        },
-                        updateTriggers: {
-                            getPolygon: currentPathData
-                        }
-                    }));
-                }
-
-                // Add point layer for fixtures without polygon data (fallback)
-                if (fixturePointData.length > 0) {
-                    layers.push(new deck.ScatterplotLayer({
-                        id: 'fixture-points',
-                        data: fixturePointData,
-                        pickable: true,
-                        opacity: 0.9,
-                        stroked: true,
-                        filled: true,
-                        radiusScale: 8,
-                        radiusMinPixels: 4,
-                        radiusMaxPixels: 12,
-                        lineWidthMinPixels: 2,
-                        getPosition: d => d.position,
-                        getRadius: d => 6,
-                        getFillColor: d => d.color,
-                        getLineColor: [0, 0, 0, 255], // Black outline
-                        updateTriggers: {
-                            getPosition: currentPathData
-                        }
-                    }));
-                }
-            }
-
-            // Add current path layer
-            if (currentPathData && currentPathData.nodes.length > 1) {
-                const pathCoordinates = currentPathData.nodes
-                    .filter(node => node.coordinates)
-                    .map(node => node.coordinates);
-
-                if (pathCoordinates.length > 1) {
-                    layers.push(new deck.PathLayer({
-                        id: 'current-path',
-                        data: [{
-                            path: pathCoordinates,
-                            name: `Path: ${currentPathData.path[0]} to ${currentPathData.path[currentPathData.path.length - 1]}`
-                        }],
-                        pickable: true,
-                        widthScale: 4,
-                        widthMinPixels: 4,
-                        widthMaxPixels: 8,
-                        getPath: d => d.path,
-                        getWidth: d => 4,
-                        getColor: [255, 107, 53, 200], // Orange-red
-                        updateTriggers: {
-                            getPath: currentPathData
-                        }
-                    }));
-                }
-            }
-
-            // Add walking paths/connections layer
-            if (graphData && graphData.walkingPaths) {
-                layers.push(new deck.PathLayer({
-                    id: 'walking-paths',
-                    data: graphData.walkingPaths,
-                    pickable: false,
-                    widthScale: 1,
-                    widthMinPixels: 1,
-                    widthMaxPixels: 2,
-                    getPath: d => d.path,
-                    getWidth: d => 1,
-                    getColor: [200, 200, 200, 100], // Light gray
-                    updateTriggers: {
-                        getPath: currentPathData
-                    }
-                }));
-            }
-
-            try {
-                deckOverlay.setProps({ layers });
-            } catch (error) {
-                console.error('Error updating deck.gl layers:', error);
-            }
-        }
-
-        // Fallback visualization for when deck.gl is not available
-        function updateFallbackVisualization() {
-            const fallbackDiv = document.getElementById('fallbackMap');
-            if (!fallbackDiv) return;
-
-            if (currentPathData && currentPathData.nodes.length > 0) {
-                const pathInfo = `
-                    <div style="padding: 20px; text-align: left;">
-                        <h4 style="margin: 0 0 15px 0; color: #333;">📍 Current Path</h4>
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #ff6b35;">
-                            <div style="margin-bottom: 10px;">
-                                <strong>From:</strong> ${currentPathData.summary.start.id} (${currentPathData.summary.start.type})
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <strong>To:</strong> ${currentPathData.summary.end.id} (${currentPathData.summary.end.type})
-                            </div>
-                            <div style="margin-bottom: 10px;">
-                                <strong>Route Length:</strong> ${currentPathData.path.length} nodes
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <strong>Waypoints Used:</strong> ${currentPathData.summary.waypointsUsed}
-                            </div>
-                            <div style="font-size: 12px; color: #666;">
-                                <strong>Path:</strong><br>
-                                ${currentPathData.path.join(' → ')}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                fallbackDiv.innerHTML = pathInfo;
-            } else {
-                fallbackDiv.innerHTML = `
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                               color: #666; font-size: 14px; text-align: center;">
-                        <div style="font-size: 24px; margin-bottom: 10px;">🗺️</div>
-                        <div>Calculate a path above to see route visualization</div>
-                        <div style="font-size: 12px; margin-top: 10px; color: #888;">
-                            ${graphData ? `${graphData.nodes.length} nodes loaded` : 'Loading graph data...'}
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        // Toggle waypoints visibility
-        function toggleWaypoints() {
-            waypointsVisible = !waypointsVisible;
-            document.getElementById('showWaypointsBtn').textContent = 
-                waypointsVisible ? 'Hide Waypoints' : 'Show Waypoints';
-            updateMapLayers();
-        }
-
-        // Toggle fixtures visibility
-        function toggleFixtures() {
-            fixturesVisible = !fixturesVisible;
-            document.getElementById('showFixturesBtn').textContent = 
-                fixturesVisible ? 'Hide Fixtures' : 'Show Fixtures';
-            updateMapLayers();
-        }
-
-        // Reset map view
-        function resetMapView() {
-            if (map) {
-                map.flyTo({
-                    center: [-123.2509, 49.2635],
-                    zoom: 18,
-                    pitch: 45,
-                    bearing: 0
-                });
-            }
-        }
-
-        // Update map when path is found
-        function updateMapWithPath(pathDetails) {
-            currentPathData = pathDetails;
-            
-            if (map && deckOverlay) {
-                updateMapLayers();
-                
-                // Fly to path bounds
-                if (pathDetails && pathDetails.nodes.length > 0) {
-                    const coordinates = pathDetails.nodes
-                        .filter(node => node.coordinates)
-                        .map(node => node.coordinates);
-                    
-                    if (coordinates.length > 0) {
-                        const bounds = coordinates.reduce((bounds, coord) => {
-                            return bounds.extend(coord);
-                        }, new maplibregl.LngLatBounds(coordinates[0], coordinates[0]));
-                        
-                        map.fitBounds(bounds, {
-                            padding: 50,
-                            maxZoom: 20
-                        });
-                    }
-                }
-            }
-        }
-
-        // Enhanced formatPathResult to include map update
-        const originalFormatPathResult = formatPathResult;
-        formatPathResult = function(pathDetails) {
-            updateMapWithPath(pathDetails);
-            return originalFormatPathResult(pathDetails);
-        };
-
-        // Enhanced loadGraph to initialize map
-        const originalLoadGraph = loadGraph;
-        loadGraph = async function() {
-            updateStatus('Loading graph data...', 'info');
-            await originalLoadGraph();
-            if (graphData) {
-                updateStatus('Graph loaded, initializing map...', 'info');
-                // walkingPaths is now populated by buildGraphFromGeoJSON
-                initializeMap();
-            } else {
-                updateStatus('Failed to load graph data', 'error');
-            }
-        };
-    </script>
 </body>
 </html>
