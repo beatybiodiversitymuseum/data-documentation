@@ -62,6 +62,9 @@ nav:
           - reference/queries/teaching/index.md
       - Mapping:
         - map/index.html
+        - map/using-the-wayfinder.md
+        - map/adding-to-map.md
+        
 plugins:
   - glightbox
   - search
