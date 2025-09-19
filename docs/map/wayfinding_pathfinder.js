@@ -191,11 +191,9 @@ function findPath(source, target, adjacencyList, nodeTypes) {
     const sourceType = nodeTypes.get(source);
     const targetType = nodeTypes.get(target);
     
-    // Both source and target should be fixtures (not waypoints)
-    if (sourceType === 'waypoint' || targetType === 'waypoint') {
-        console.warn('Source and target must be fixtures (di_box, cabinet, fossil), not waypoints');
-        return null;
-    }
+    console.log(`Pathfinding: source='${source}' (type: ${sourceType}), target='${target}' (type: ${targetType})`);
+    
+    // Allow waypoints as source/target - no restriction needed
     
     // BFS with path tracking
     const queue = [[source]];
@@ -218,7 +216,8 @@ function findPath(source, target, adjacencyList, nodeTypes) {
                 return newPath;
             }
             
-            // Enforce constraint: fixture -> waypoint -> fixture
+            // Allow all connections: waypoint-to-waypoint, waypoint-to-fixture, fixture-to-waypoint
+            // Only restrict direct fixture-to-fixture connections (must go through waypoints)
             let canVisit = false;
             
             if (currentNodeType !== 'waypoint' && neighborType === 'waypoint') {
@@ -228,14 +227,21 @@ function findPath(source, target, adjacencyList, nodeTypes) {
                 // Waypoint to fixture: allowed
                 canVisit = true;
             } else if (currentNodeType === 'waypoint' && neighborType === 'waypoint') {
-                // Waypoint to waypoint: allowed (for waypoint-to-waypoint paths)
+                // Waypoint to waypoint: allowed
+                canVisit = true;
+            } else if (currentNodeType !== 'waypoint' && neighborType !== 'waypoint') {
+                // Fixture to fixture: not allowed (must go through waypoints)
+                canVisit = false;
+            } else {
+                // Default case: allow if we don't know the types
                 canVisit = true;
             }
-            // Fixture to fixture: not allowed (would be false)
             
             if (canVisit) {
                 visited.add(neighbor);
                 queue.push(newPath);
+            } else {
+                console.log(`Cannot visit neighbor '${neighbor}' (type: ${neighborType}) from '${currentNode}' (type: ${currentNodeType})`);
             }
         }
     }
@@ -277,8 +283,8 @@ function getPathDetails(path, nodeTypes, nodeCoordinates) {
 
 /**
  * Main pathfinding function
- * @param {string} source - Source fixture ID (e.g., "di_27_18_top", "col_1_cab_01")
- * @param {string} target - Target fixture ID (e.g., "fossil_excavation_1", "col_2_cab_15")
+ * @param {string} source - Source fixture or waypoint ID (e.g., "di_27_18_top", "col_1_cab_01", "wp_001")
+ * @param {string} target - Target fixture or waypoint ID (e.g., "fossil_excavation_1", "col_2_cab_15", "wp_025")
  * @param {Object} graph - Pre-built graph object (optional, will load from default path if not provided)
  * @returns {Promise<Object|null>} Detailed path information or null if no path exists
  */
@@ -298,6 +304,13 @@ async function findFixturePath(source, target, graph = null) {
         }
         
         console.log(`Finding path from ${source} to ${target}...`);
+        
+        // Debug: Check if nodes exist and their types
+        console.log(`Source '${source}' exists:`, graph.adjacencyList.has(source));
+        console.log(`Target '${target}' exists:`, graph.adjacencyList.has(target));
+        console.log(`Source type:`, graph.nodeTypes.get(source));
+        console.log(`Target type:`, graph.nodeTypes.get(target));
+        console.log(`Source neighbors:`, Array.from(graph.adjacencyList.get(source) || []));
         
         // Find the path
         const path = findPath(source, target, graph.adjacencyList, graph.nodeTypes);
@@ -336,11 +349,19 @@ if (typeof module !== 'undefined' && module.exports) {
 // Example usage (can be called directly in browser console or Node.js)
 async function exampleUsage() {
     // Example: Find path from a DI box to a fossil excavation
-    const result = await findFixturePath('di_27_18_top', 'fossil_excavation_1');
+    const result1 = await findFixturePath('di_27_18_top', 'fossil_excavation_1');
     
-    if (result) {
-        console.log('Path Details:', result);
-        console.log(`Route: ${result.nodes.map(n => `${n.id} (${n.type})`).join(' -> ')}`);
+    if (result1) {
+        console.log('Path Details:', result1);
+        console.log(`Route: ${result1.nodes.map(n => `${n.id} (${n.type})`).join(' -> ')}`);
+    }
+    
+    // Example: Find path from waypoint to waypoint
+    const result2 = await findFixturePath('wp_001', 'wp_025');
+    
+    if (result2) {
+        console.log('Waypoint Path Details:', result2);
+        console.log(`Route: ${result2.nodes.map(n => `${n.id} (${n.type})`).join(' -> ')}`);
     }
 }
 

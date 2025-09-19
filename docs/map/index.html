@@ -158,6 +158,7 @@
         .fixture-type.di_box { color: #ef6c00; }
         .fixture-type.cabinet { color: #7b1fa2; }
         .fixture-type.fossil { color: #2e7d32; }
+        .fixture-type.waypoint { color: #1e90ff; }
         
         /* Accessibility styles */
         .sr-only {
@@ -229,17 +230,17 @@
 <body>
     <div class="container">
         <h1>🗺️ Wayfinding Pathfinder</h1>
-        <p>Find paths between fixtures (DI boxes, cabinets, fossil excavations) through waypoints.</p>
+        <p>Find paths between fixtures (DI boxes, cabinets, fossil excavations) and waypoints through the wayfinding network.</p>
         
         <form id="pathfindingForm" role="form" aria-label="Wayfinding pathfinding form">
             <div class="form-group">
-                <label for="source" id="source-label">Source Fixture ID:</label>
+                <label for="source" id="source-label">Source ID (Fixture or Waypoint):</label>
                 <div class="autocomplete" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="source-label">
                     <input 
                         type="text" 
                         id="source" 
                         name="source" 
-                        placeholder="e.g., di_27_18_top" 
+                        placeholder="e.g., di_27_18_top or wp_001" 
                         required 
                         autocomplete="off"
                         aria-describedby="source-help"
@@ -247,17 +248,17 @@
                         role="textbox"
                     >
                 </div>
-                <div id="source-help" class="sr-only">Enter the starting fixture ID. Use autocomplete suggestions for valid options.</div>
+                <div id="source-help" class="sr-only">Enter the starting fixture or waypoint ID. Use autocomplete suggestions for valid options.</div>
             </div>
             
             <div class="form-group">
-                <label for="target" id="target-label">Target Fixture ID:</label>
+                <label for="target" id="target-label">Target ID (Fixture or Waypoint):</label>
                 <div class="autocomplete" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-labelledby="target-label">
                     <input 
                         type="text" 
                         id="target" 
                         name="target" 
-                        placeholder="e.g., fossil_excavation_1" 
+                        placeholder="e.g., fossil_excavation_1 or wp_025" 
                         required 
                         autocomplete="off"
                         aria-describedby="target-help"
@@ -265,7 +266,7 @@
                         role="textbox"
                     >
                 </div>
-                <div id="target-help" class="sr-only">Enter the destination fixture ID. Use autocomplete suggestions for valid options.</div>
+                <div id="target-help" class="sr-only">Enter the destination fixture or waypoint ID. Use autocomplete suggestions for valid options.</div>
             </div>
             
             <button type="submit" aria-describedby="find-path-help">Find Path <span style="font-size: 12px; opacity: 0.7;">(Ctrl+Enter)</span></button>
@@ -279,12 +280,15 @@
             <p><strong>DI Boxes:</strong> di_27_18_top, di_05_01_top, di_12_08_bottom</p>
             <p><strong>Cabinets:</strong> col_1_cab_01, col_2_cab_15, col_3_cab_22</p>
             <p><strong>Fossils:</strong> fossil_excavation_1, fossil_excavation_2, fossil_excavation_9</p>
+            <p><strong>Waypoints:</strong> wp_001, wp_010, wp_025, wp_049</p>
             
             <h4>Quick Examples:</h4>
             <div role="group" aria-label="Example pathfinding scenarios">
                 <button class="example-button" onclick="setExample('di_27_18_top', 'fossil_excavation_1')" aria-label="Set source to DI Box di_27_18_top and target to Fossil excavation 1">DI Box → Fossil</button>
                 <button class="example-button" onclick="setExample('col_1_cab_01', 'di_05_01_top')" aria-label="Set source to Cabinet col_1_cab_01 and target to DI Box di_05_01_top">Cabinet → DI Box</button>
                 <button class="example-button" onclick="setExample('fossil_excavation_1', 'col_2_cab_15')" aria-label="Set source to Fossil excavation 1 and target to Cabinet col_2_cab_15">Fossil → Cabinet</button>
+                <button class="example-button" onclick="setExample('wp_001', 'wp_025')" aria-label="Set source to Waypoint wp_001 and target to Waypoint wp_025">Waypoint → Waypoint</button>
+                <button class="example-button" onclick="setExample('wp_010', 'di_27_18_top')" aria-label="Set source to Waypoint wp_010 and target to DI Box di_27_18_top">Waypoint → DI Box</button>
             </div>
             
             <h4>⌨️ Keyboard Shortcuts:</h4>
@@ -327,11 +331,8 @@
         function initAutocomplete() {
             if (!graphData) return;
             
-            // Get all fixture nodes (non-waypoint nodes)
-            fixtureNodes = graphData.nodes.filter(nodeId => {
-                const nodeType = graphData.nodeTypes.get(nodeId);
-                return nodeType !== 'waypoint';
-            }).sort();
+            // Get all nodes (including waypoints) for searchable items
+            fixtureNodes = graphData.nodes.sort();
 
             // Initialize autocomplete for both inputs
             setupAutocomplete(document.getElementById('source'));
@@ -753,7 +754,7 @@
                     <p><strong>Node Types Breakdown:</strong></p>
                     <ul>
                         <li>🔵 Waypoints: ${waypointCount.toLocaleString()} (navigation grid points)</li>
-                        <li>🟠 DI Boxes: ${diBoxCount.toLocaleString()} (distribution interfaces)</li>
+                        <li>🟠 DI Boxes: ${diBoxCount.toLocaleString()} (Display drawers)</li>
                         <li>🟣 Cabinets: ${cabinetCount.toLocaleString()} (storage/equipment)</li>
                         <li>🟢 Fossil Excavations: ${fossilCount.toLocaleString()} (dig sites)</li>
                     </ul>
@@ -814,6 +815,7 @@
                         <li><code>di_27_18_top</code> (DI Box)</li>
                         <li><code>col_1_cab_01</code> (Cabinet)</li>
                         <li><code>fossil_excavation_1</code> (Fossil)</li>
+                        <li><code>wp_001</code> (Waypoint)</li>
                     </ul>
                 `, 'error');
                 document.getElementById('source').focus();
@@ -828,6 +830,7 @@
                         <li><code>di_27_18_top</code> (DI Box)</li>
                         <li><code>col_1_cab_01</code> (Cabinet)</li>
                         <li><code>fossil_excavation_1</code> (Fossil)</li>
+                        <li><code>wp_001</code> (Waypoint)</li>
                     </ul>
                 `, 'error');
                 document.getElementById('target').focus();
@@ -866,7 +869,7 @@
                 const fixtureNodes = graphData.nodes.filter(nodeId => graphData.nodeTypes.get(nodeId) !== 'waypoint');
                 
                 // Use the enhanced pathfinding with better error handling
-                const path = findPath(source, target, graphData.adjacencyList, graphData.nodeTypes, fixtureNodes);
+                const path = findPath(source, target, graphData.adjacencyList, graphData.nodeTypes);
                 const pathDetails = getPathDetails(path, graphData.nodeTypes, graphData.nodeCoordinates);
                 
                 if (pathDetails) {
