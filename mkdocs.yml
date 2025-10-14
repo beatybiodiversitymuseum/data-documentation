@@ -64,6 +64,10 @@ nav:
         - map/index.html
         - map/using-the-wayfinder.md
         - map/adding-to-map.md
+  - Notes:
+      - blog/index.md
+      - blog/seminar/index.md
+      
         
 plugins:
   - glightbox
