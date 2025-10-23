@@ -194,4 +194,4 @@ We then talked about locations. The general problem identified is that the data 
 
 `Country > Province > City`
 
-But there are other attributes that make locations a bit confusing, such as latitude-longitude values. There were a lot of problems identified with locations, so we decided to make this the major discussion topic of our next meeting. 
+But there are other attributes that make locations a bit confusing, such as latitude-longitude values. There were a lot of problems identified with locations, so we decided to make this the major discussion topic of our next meeting.
