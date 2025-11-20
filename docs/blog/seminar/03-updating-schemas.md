@@ -12,7 +12,6 @@ Updating a database schema is a non-trivial task that involves both curatorial a
 In today's seminar, we will learn how to update the many aspects of the Specify data model. We will learn how to update the core technical database schema, and the opportunities and limitations of updating it. Then, we will learn how to update data entry forms, and their relation to the core model. Then we will learn how to use queries to navigate the complexity of the core schema.
 
 ## Notes
-Notes for the seminar will be posted here afterwards.
 
 ### Links
 - [Core Specify Data Model](https://database.beatymuseum.ubc.ca/specify/data-model)
