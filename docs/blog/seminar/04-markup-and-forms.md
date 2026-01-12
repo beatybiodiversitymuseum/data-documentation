@@ -12,7 +12,9 @@ Many common data models use a format called eXtensible Markup Language (XML). Th
 In this seminar, we'll learn how to read and write markup languages, focusing on XML and HTML. We'll apply them to the form editor on Specify. We'll also explore how XML can be used in archival data storage formats.
 
 ## Notes
-Notes for the seminar will be posted here afterwards.
+- [Slides markdown](attachments/04-slides.md)
+- [Slides HTML](attachments/04-slides.html)
+- [Slides PDF](attachments/04-slides.pdf)
 
 ### Links
 - [XML](https://en.wikipedia.org/wiki/XML)

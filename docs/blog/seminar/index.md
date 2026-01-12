@@ -13,7 +13,8 @@ Here is a list of the upcoming topics for the seminar.
 
 | Date          | Topic                       | Presenter                              |
 |---------------|-----------------------------|----------------------------------------|
-| Oct 22, 2025  | [Object-oriented data modelling](01-object-oriented-data-modelling)  | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
-| Nov 05, 2025  | [Data standards](02-data-standards)               | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
-| Nov 19, 2025  | [Updating schemas](03-updating-schemas)           | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
+| Jan 14, 2026  | [Data Science Kickoff](05-data-science) | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
 | Dec 03, 2025  | [Markup Languages and Forms](04-markup-and-forms) | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
+| Nov 19, 2025  | [Updating schemas](03-updating-schemas)           | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
+| Nov 05, 2025  | [Data standards](02-data-standards)               | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
+| Oct 22, 2025  | [Object-oriented data modelling](01-object-oriented-data-modelling)  | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
