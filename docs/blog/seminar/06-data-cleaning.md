@@ -14,4 +14,5 @@ Today, we will go through a worked example of data cleaning. We'll start with ge
 Even though we'll be looking at Specify, the lessons learned here would apply to any data cleaning workflow.
 
 ## Notes
-TK after lecture.
+- [Slides markdown](attachments/06-slides.md)
+- [Slides HTML](attachments/06-slides.html)
