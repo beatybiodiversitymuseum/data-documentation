@@ -13,6 +13,9 @@ Here is a list of the upcoming topics for the seminar.
 
 | Date          | Topic                                              | Presenter                              |
 |---------------|----------------------------------------------------|----------------------------------------|
+| Mar 11, 2026  | [Natural Language Procssing](09-nlp)               | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
+| Feb 25, 2026  | [Network Metrics](08-network-metrics)              | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
+| Feb 11, 2026  | [APIs and Agents](07-api-agents)                   | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
 | Jan 28, 2026  | [Data cleaning workflow](06-data-cleaning)         | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
 | Jan 14, 2026  | [Data Science Kickoff](05-data-science)            | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
 | Dec 03, 2025  | [Markup Languages and Forms](04-markup-and-forms)  | [Paul Bucci](mailto:paul.bucci@ubc.ca) |
