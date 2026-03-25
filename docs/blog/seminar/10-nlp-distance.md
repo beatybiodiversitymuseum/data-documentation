@@ -18,5 +18,5 @@ Unreadable to us, but easier for a computer to process. The utility of this is t
 
 ## Notes
 - [Jupyter Notebook](https://mybinder.org/v2/gh/beatybiodiversitymuseum/edit-distance-example/main?urlpath=%2Fdoc%2Ftree%2Fstart.ipynb)
-- [Slides HTML](attachments/assets/10-slides.html)
-- [Slides Markdown](attachments/assets/10-slides.md)
+- [Slides HTML](attachments/nlp-distance/10-slides.html)
+- [Slides Markdown](attachments/nlp-distance/10-slides.md)
