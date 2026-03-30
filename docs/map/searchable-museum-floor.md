@@ -1,1 +1,1 @@
-[Searchable museum floor](assets/searchable-museum-floor/index.html)
+[Searchable museum floor](/data-documentation/map/assets/searchable-museum-floor/index.html)
