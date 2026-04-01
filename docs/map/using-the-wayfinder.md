@@ -3,6 +3,7 @@ title: "Using the Wayfinder"
 icon: octicons/location-16
 ---
 
+
 The [Wayfinding Pathfinder](https://beatybiodiversitymuseum.github.io/data-documentation/map/) has been created to aide with indoor mapping at the Beaty. It currently includes a map of the Beaty's indoor fixtures, including all display boxes, cabinets, and fossil excavations. It will automatically generate a path between two or more fixtures.
 
 The purpose of having this tool available is to create custom narrative journeys through the Beaty. Interpreters and volunteers can customize a journey through the museum. For example, the following journey was created:

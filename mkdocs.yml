@@ -64,7 +64,8 @@ nav:
         - map/index.html
         - map/using-the-wayfinder.md
         - map/adding-to-map.md
-        - map/searchable-museum-floor.md
+        - map/searchable-museum-floor/index.md
+        - map/generated-journeys/index.md
   - Notes:
       - blog/index.md
       - blog/seminar/index.md
