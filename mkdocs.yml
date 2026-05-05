@@ -69,6 +69,7 @@ nav:
   - Notes:
       - blog/index.md
       - blog/seminar/index.md
+      - blog/WL-blog/index.md
       
         
 plugins:
