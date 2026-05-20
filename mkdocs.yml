@@ -42,6 +42,17 @@ nav:
       - reference/key-reference.md
       - reference/filter-terms.md
 
+      - Recipes:
+        - reference/recipes/index.md
+        - reference/recipes/prompt.md
+        - Prompt Templates:
+          - reference/recipes/prompt-templates/generic.md
+          - reference/recipes/prompt-templates/locality.md
+          - reference/recipes/prompt-templates/queries.md
+          - reference/recipes/prompt-templates/statistics.md
+          - reference/recipes/prompt-templates/taxon.md
+          - reference/recipes/prompt-templates/workbench.md
+
       - Queries:
         - reference/queries/index.md
         - reference/queries/saved-queries.md
@@ -144,10 +155,17 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 extra_javascript: 
+  - https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/markdown/markdown.min.js
   - https://cdn.jsdelivr.net/npm/fuse.js@7.1.0
+  - assets/js/recipe-editor.js
+
 extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css
+  - https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/default.min.css
   - stylesheets/extra.css
   - stylesheets/light.css
+  - assets/css/recipe-editor.css
 copyright: <iframe src="https://status.beatymuseum.ubc.ca/badge" width="250" height="30" frameborder="0" scrolling="no"></iframe>
 extra:
   analytics:

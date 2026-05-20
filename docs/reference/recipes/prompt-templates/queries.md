@@ -1,0 +1,247 @@
+# Query Builder Troubleshooting
+
+## 1. Correct process
+
+Use this recipe when a user is trying to build, run, troubleshoot, export, or reuse a query in Specify 7.
+
+Primary Specify references:
+
+- Query Builder in Specify 7: <https://discourse.specifysoftware.org/t/query-builder-in-specify-7/289>
+- Record Sets: <https://discourse.specifysoftware.org/t/record-sets/1620>
+- Simple Search: <https://discourse.specifysoftware.org/t/simple-search/185>
+- Specify Schema & Data Model: <https://discourse.specifysoftware.org/t/view-the-specify-schema-data-model/273>
+
+Use this recipe for problems such as:
+
+- Query returns no results
+- Query returns too many results
+- Query returns duplicate-looking rows
+- Query cannot find the desired field
+- Query uses the wrong relationship path
+- Query export to CSV looks wrong
+- Query results differ from Simple Search
+- Query results differ from a report, label, portal, Darwin Core export, or GBIF dataset
+- Query cannot be used to create the desired Record Set
+- Query involving Locality, Geography, Taxon, Determination, Agent, Preparation, or Collection Object behaves unexpectedly
+
+Correct general process:
+
+1. Identify the user’s actual goal.
+
+    - Find records interactively
+    - Export data to CSV
+    - Create a Record Set
+    - Generate KML
+    - Support a report or label
+    - Check data quality
+    - Find duplicates
+    - Audit WorkBench uploads
+    - Compare Specify data to Darwin Core, GBIF, or a public portal
+    - Troubleshoot a form or data-entry issue
+
+2. Decide whether Query Builder is the right tool.
+
+    - Use Query Builder for structured searches across tables and related fields.
+    - Use Simple Search for broad keyword-style searching.
+    - Use Record Sets when the user needs to save a fixed group of records.
+    - Use WorkBench or Batch Edit when the goal is to upload or bulk-edit data.
+    - Use reports/labels when the issue is output formatting.
+    - Use Darwin Core or GBIF mapping tools when the issue is biodiversity publishing output.
+
+3. Identify the base table.
+
+    - Confirm which table the query starts from.
+    - Common base tables include Collection Object, Collecting Event, Locality, Taxon, Agent, Preparation, Determination, Accession, Loan, Gift, or other discipline-specific tables.
+    - The base table affects which records are returned and which relationship paths are available.
+    - If the user expects one row per Collection Object, start from Collection Object unless there is a clear reason not to.
+
+4. Add fields deliberately.
+
+    - Add only the fields needed for the user’s goal.
+    - Confirm whether each field is a display/output field, a filter criterion, or both.
+    - Use clear captions or saved-query names when possible.
+    - Avoid adding related-table fields without understanding whether they create multiple rows.
+
+5. Choose the correct relationship path.
+
+    - Many fields with similar names exist in different tables.
+    - For example, Taxon fields may come through Determination, Preferred Taxon, current determination, or tree relationships.
+    - Geography fields may come through Locality.
+    - Agent fields may appear in many roles, such as collector, determiner, preparer, accession agent, loan agent, or modified-by user.
+    - If results look wrong, check the relationship path before changing the data.
+
+6. Apply filters carefully.
+
+    - Confirm the operator: Equals, Contains, Starts With, Is Empty, Is Not Empty, Between, Greater Than, Less Than, or another available operator.
+    - Check case, punctuation, whitespace, abbreviations, and special characters.
+    - Check whether the field stores a value, a formatted display value, or a related-record reference.
+    - For dates, confirm the date field and date format.
+    - For blank values, distinguish between empty fields, null values, missing related records, and records that do not join through the selected path.
+
+7. Check joins and repeated rows.
+
+    - Duplicate-looking rows often occur because one base record has multiple related records.
+    - Examples:
+
+        - One Collection Object has multiple Determinations.
+        - One Collection Object has multiple Preparations.
+        - One Collecting Event has multiple Collectors.
+        - One Locality is shared by multiple Collecting Events.
+        - One Taxon has many linked Determinations.
+    - Before treating these as duplicate records, identify which related table is multiplying the results.
+
+8. Use distinct/grouped query behavior carefully.
+
+    - Distinct queries can help collapse identical result rows.
+    - Distinct results may hide underlying record-level complexity.
+    - If users need to inspect individual records, avoid relying only on distinct/grouped output.
+    - If using distinct results for export, confirm whether the output still supports the intended downstream use.
+
+9. Check export behavior.
+
+    - Confirm whether the user is exporting query results to CSV.
+    - Confirm whether the export should include record identifiers, catalog numbers, related-record fields, or display values.
+    - Confirm whether CSV encoding, delimiters, line breaks, date formats, or special characters are causing confusion.
+    - If the export is for Darwin Core, GBIF, a report, or a public portal, check the mapping/export process instead of assuming the query itself is wrong.
+
+10. Check Record Set behavior.
+
+    - Confirm whether the query is being used to create a Record Set.
+    - Confirm the base table matches the desired Record Set type.
+    - A query returning Localities, Taxa, Agents, or Collecting Events is not the same as a query returning Collection Objects.
+    - If a Record Set is being merged or exported, confirm which records are included and whether the set is static or query-derived.
+
+11. Save and document reusable queries.
+
+    - Use a clear query name.
+    - Document the base table, purpose, filters, and expected row count.
+    - For recurring QA checks, document what a result means and what action should follow.
+    - For shared institutional workflows, check Beaty conventions before changing a saved query.
+
+12. If results are still unexpected, collect evidence.
+
+    - Screenshot of the query builder fields and filters
+    - Saved query name
+    - Base table
+    - Expected row count
+    - Actual row count
+    - Example record that should appear but does not
+    - Example record that appears but should not
+    - CSV export sample, if relevant
+    - Report, label, Darwin Core, GBIF, or portal output, if relevant
+
+## 2. Common mistakes / user-editable error descriptions
+
+The user can add to, delete from, or check off this list before sending the problem to the agent.
+
+Common Query Builder mistakes:
+
+- I may be using Query Builder when Simple Search would be more appropriate.
+- I may be using Simple Search expectations for a Query Builder problem.
+- I may have started the query from the wrong base table.
+- I may expect one row per Collection Object, but the query starts from another table.
+- I may have selected the wrong relationship path.
+- I may have selected a field with the right name but from the wrong table.
+- I may be confusing Locality with Geography.
+- I may be confusing Taxon with Determination.
+- I may be confusing accepted taxon, preferred taxon, current determination, and historical determinations.
+- I may be confusing collector, determiner, preparer, accession agent, loan agent, or modified-by user.
+- I may be filtering on a display field when I need the underlying field, or vice versa.
+- I may be filtering on a formatted value when the stored value is different.
+- I may be using Contains when I need Equals.
+- I may be using Equals when I need Contains.
+- I may be searching for a blank field with the wrong empty/null operator.
+- I may be missing records because the related record does not exist on the selected relationship path.
+- I may be getting duplicate-looking rows because one record has multiple related records.
+- I may be treating repeated rows from related tables as duplicate Collection Objects.
+- I may have added too many related fields, causing extra rows.
+- I may be using distinct/grouped results without realizing that underlying records may differ.
+- I may be exporting a query to CSV and expecting the same output as a report, label, Darwin Core archive, GBIF export, or public portal.
+- I may be expecting Query Builder results to match a saved report or label that uses different joins or formatting.
+- I may be expecting Query Builder results to match Darwin Core or GBIF output without checking the export mapping.
+- I may be missing records because of case, punctuation, whitespace, abbreviations, or special characters.
+- I may be using the wrong date field.
+- I may be using an unexpected date format.
+- I may be trying to create a Collection Object Record Set from a query whose base table is not Collection Object.
+- I may be using an old saved query without checking whether fields, forms, schema, or institutional conventions changed.
+- I may be editing a shared saved query without checking who else depends on it.
+- I may be using a query to diagnose an upload problem without checking the original WorkBench mapping or upload plan.
+- I may be assuming the data is wrong when the problem is actually the query path, filters, export, or display configuration.
+
+## 3. Agent diagnostic recipe
+
+You are a Specify 7 support assistant working with the Beaty Biodiversity Museum at the University of British Columbia.
+
+Use these sources in this order:
+
+1. Beaty Biodiversity Museum data documentation for Beaty-specific workflows, conventions, collection practices, and local configuration: <https://beatybiodiversitymuseum.github.io/data-documentation/>
+2. Official Specify documentation and community forum: <https://discourse.specifysoftware.org/docs>
+3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
+4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
+5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
+
+Help me solve the following Specify 7 Query Builder problem:
+    [Describe the Query Builder problem here]
+
+Context:
+
+- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
+
+- Area affected: [Choose one or more: Query Builder / Simple Search / Record Sets / CSV export / KML export / Collection Object / Collecting Event / Locality / Geography tree / Taxon tree / Determination / Preparation / Agent / Storage / attachments / WorkBench / Batch Edit / forms / reports and labels / API / Darwin Core export / GBIF publishing / public portal / other]
+
+- Query operation: [Choose one or more: create query / edit saved query / run query / filter records / add related fields / export CSV / create KML / create Record Set / find duplicates / audit uploaded records / compare to report or label / compare to Darwin Core or GBIF / compare to portal / other]
+
+- Query details:
+
+    - [Saved query name, if any]
+    - [Base table]
+    - [Expected result type, e.g. one row per Collection Object, Locality, Taxon, Agent, etc.]
+    - [Expected row count]
+    - [Actual row count]
+    - [Fields included]
+    - [Filters/operators used]
+    - [Sort order, if relevant]
+    - [Distinct/grouped query? yes / no / unknown]
+    - [Shared query? yes / no / unknown]
+
+- Example records:
+
+    - [Example record that should appear but does not]
+    - [Example record that appears but should not]
+    - [Example duplicate-looking rows]
+    - [Example exported CSV row, if relevant]
+
+- What I was trying to do: [Describe the desired outcome]
+
+- What happened instead: [Describe what happened instead]
+
+- Exact error message, if any: [Paste error message here or delete line]
+
+- Evidence: [Screenshot of query fields, relationship path, filters, results, CSV export, Record Set, report/label output, Darwin Core/GBIF output, portal output, API response, SQL, or affected records]
+
+Please answer with:
+
+1. The most likely cause.
+2. Whether this is primarily a base-table issue, relationship-path issue, filter/operator issue, permissions issue, saved-query issue, export issue, Record Set issue, downstream mapping issue, or actual data issue.
+3. The correct Specify 7 process for this kind of query operation.
+4. Step-by-step troubleshooting or fix instructions.
+5. Relevant Beaty, Specify documentation, forum, GitHub issue, Darwin Core, or GBIF references.
+6. Warnings about actions that could affect shared saved queries, Record Sets, reports, labels, exports, public portals, data interpretation, or production systems.
+7. What information is still missing if the issue cannot be diagnosed confidently.
+8. A concise recommended next action.
+
+Rules:
+
+- Do not guess beyond the sources above.
+- Prefer Beaty-specific documentation when the issue involves local workflows, collection practices, data standards, saved queries, QA checks, app resources, public data, export conventions, or institutional conventions.
+- Prefer official Specify documentation and forum posts for general Specify 7 Query Builder, Record Set, CSV export, KML export, and Simple Search behavior.
+- Use GitHub only when documentation is insufficient, the problem appears technical, or source-code behavior matters.
+- Do not assume the data is wrong until the base table, relationship path, fields, filters, operators, and export/display context have been checked.
+- Before recommending changes to records, confirm whether the issue is caused by query design rather than data content.
+- Before changing a shared saved query, confirm who uses it and whether reports, labels, QA workflows, or exports depend on it.
+- If the query result has duplicate-looking rows, check related-table multiplicity before treating records as duplicates.
+- If the query returns no results, check base table, relationship path, permissions, filters, empty/null operators, case, whitespace, punctuation, and missing related records.
+- If the query is for a Record Set, confirm that the base table matches the desired Record Set type.
+- If the query is for CSV export, confirm whether the export needs raw values, display values, identifiers, related-record fields, or downstream transformation.
+- For Darwin Core, GBIF, KML, reports, labels, and public portal issues, check mappings, required terms, controlled vocabularies, identifiers, licenses, basisOfRecord, occurrenceID, eventDate, scientificName, locality, decimalLatitude, decimalLongitude, geodeticDatum, coordinateUncertaintyInMeters, country, stateProvince, county, municipality, higherGeography, and any Beaty-specific export conventions before recommending data or query changes.
+- If the answer depends on Beaty’s configuration, database schema, permissions, deployment, collection-specific setup, saved queries, report definitions, export mappings, or local data-publishing workflow, say so clearly and tell me exactly what to check next.

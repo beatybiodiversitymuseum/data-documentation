@@ -1,0 +1,218 @@
+# Locality Operation
+
+## 1. Correct process
+
+Use this recipe when a user is trying to perform a Locality-related operation in Specify 7, including creating, editing, reusing, cloning, merging, georeferencing, importing, querying, exporting, or troubleshooting Locality records.
+
+Primary Specify references:
+
+- Specify Terminology: <https://discourse.specifysoftware.org/t/specify-terminology/3179>
+- Locality and Locality Plugins: <https://discourse.specifysoftware.org/t/locality-and-locality-plugins/1331>
+- Trees in Specify: <https://discourse.specifysoftware.org/t/trees-in-specify/534>
+- The Specify 7 WorkBench: <https://discourse.specifysoftware.org/t/the-specify-7-workbench/540>
+
+Important distinction:
+
+Locality and Geography are related, but they are not the same thing.
+
+- Locality records describe the specific “where” of a collecting event. They can include locality name, named place description, coordinates, datum, uncertainty, georeferencing method, elevation, depth, remarks, and other georeferencing details.
+- Geography is a hierarchical tree of geographic names, such as continent, country, state/province, county, municipality, or similar configured ranks.
+- A Locality belongs to one Geography.
+- Multiple Collecting Events may share the same Locality.
+- A Geography node may be linked to many Localities.
+- Editing a Locality changes the place record itself.
+- Editing the Geography tree changes the controlled geographic hierarchy, not the Locality description.
+
+Before recommending any change, confirm what kind of operation the user is attempting:
+
+- Find or search for a Locality
+- Add a new Locality
+- Reuse an existing Locality
+- Clone an existing Locality
+- Edit an existing Locality
+- Merge duplicate Localities
+- Attach a Locality to the correct Geography
+- Correct coordinates
+- Add or revise georeferencing metadata
+- Use GEOLocate
+- Import Localities through WorkBench
+- Query or export Locality data
+- Fix Darwin Core / GBIF / portal output involving locality fields
+- Fix a Geography tree problem that the user is calling a Locality problem
+
+Correct general process:
+
+1. Decide whether the issue is Locality or Geography.
+
+      - If the user is changing a specific collecting place, coordinates, uncertainty, datum, elevation, depth, or georeference metadata, this is probably a Locality issue.
+      - If the user is changing country, province/state, county, municipality, or other hierarchical geographic names, this may be a Geography tree issue.
+      - If the user says “locality tree,” clarify whether they mean Locality records or the Geography tree. Locality is not one of the Specify tree tables.
+
+2. Identify the record relationships.
+
+      - Confirm whether the Locality is linked to one or more Collecting Events.
+      - Confirm whether the Collecting Events are linked to Collection Objects.
+      - Confirm whether the Locality is shared by multiple records.
+      - If the Locality is shared, editing it may affect multiple Collection Objects.
+
+3. Confirm the intended final state.
+
+      - Should the existing Locality be corrected for all linked records?
+      - Should a new Locality be created instead?
+      - Should the user clone the Locality because only one collecting event needs different details?
+      - Should duplicate Localities be merged?
+      - Should Geography be corrected instead of Locality?
+      - Should the change affect Darwin Core, GBIF, public portals, reports, or labels?
+
+4. Check user permissions and form behavior.
+
+      - Confirm the user has permission to create or edit Locality records.
+      - Confirm whether the Locality field is using a query combo box, subform, or embedded form behavior.
+      - Confirm whether the user is editing the Locality record directly or editing it through a Collecting Event / Collection Object workflow.
+
+5. Check coordinate and georeferencing fields.
+
+      - Confirm the coordinate format being entered.
+      - Confirm datum, uncertainty, coordinate precision, georeferencing method, and georeferenced-by fields when relevant.
+      - Specify stores displayed coordinate text and decimal coordinate fields differently, so do not assume the visible text field and decimal field are identical.
+      - If the issue involves old/verbatim coordinates, check whether the database/form has fields for verbatim latitude and longitude.
+
+6. Check GEOLocate expectations.
+
+      - GEOLocate uses locality description and geography fields such as country, state, and county to propose coordinates.
+      - It may require enough locality and geography context to return useful results.
+      - Accepting GEOLocate results may replace existing latitude and longitude values in a WorkBench dataset, so warn users before recommending this.
+
+7. Check imports and bulk updates carefully.
+
+      - For WorkBench imports, confirm Locality columns, Geography columns, coordinates, datum, elevation/depth fields, and matching behavior.
+      - For Batch Edit or bulk changes, confirm whether Localities are shared before editing.
+      - For duplicate Localities, consider record merge only after checking linked Collecting Events and Collection Objects.
+      - For SQL/API operations, recommend testing in a safe copy first.
+
+8. Check downstream effects.
+
+      - Locality changes can affect Collection Object interpretation, Collecting Events, Query Builder results, reports, labels, KML exports, Darwin Core exports, GBIF publishing, and public-facing portals.
+      - Geography changes can also affect DwC fields such as country, stateProvince, county, municipality, and higherGeography.
+      - Do not recommend Locality edits as a fix for public data until the export mapping has also been checked.
+
+9. If the issue is unclear, collect evidence before giving instructions.
+
+      - Screenshot of the Locality form
+      - Locality name or identifier
+      - Linked Collecting Event or Collection Object examples
+      - Current Geography
+      - Intended Geography
+      - Current coordinates and intended coordinates
+      - Whether the Locality is shared
+      - Exact error message
+      - User role and collection/discipline
+      - WorkBench dataset, query, export, or API response if relevant
+
+## 2. Common mistakes / user-editable error descriptions
+
+The user can add to, delete from, or check off this list before sending the problem to the agent.
+
+Common Locality mistakes:
+
+- I may be confusing Locality with Geography.
+- I may be calling Geography a “locality tree,” even though Geography is the tree and Locality is a separate record table.
+- I may be trying to fix a Geography tree problem by editing the Locality record.
+- I may be trying to fix a Locality description or coordinate problem by editing the Geography tree.
+- I may be editing a shared Locality that is linked to multiple Collecting Events.
+- I may need to clone the Locality instead of editing the existing shared Locality.
+- I may be creating duplicate Localities instead of reusing an existing Locality.
+- I may be reusing an existing Locality when the new collecting event needs different coordinates, elevation, depth, datum, uncertainty, or remarks.
+- I may be assuming that Locality Name is unique when it may not be.
+- I may be relying on Locality Name alone when multiple records have the same or similar name but different coordinates or details.
+- I may be missing the required or expected Geography link.
+- I may have selected the wrong country, province/state, county, municipality, or other Geography node.
+- I may be entering coordinates in a format the form does not accept.
+- I may have latitude and longitude reversed.
+- I may have the wrong sign for latitude or longitude.
+- I may have entered west longitude or south latitude incorrectly.
+- I may have mixed decimal degrees, degrees-minutes-seconds, or degrees-decimal-minutes.
+- I may be missing datum, uncertainty, georeferencing method, or georeferenced-by information.
+- I may be overwriting existing coordinates when I meant to preserve verbatim coordinates.
+- I may be assuming Specify keeps coordinate version history automatically.
+- I may be using GEOLocate without enough Locality and Geography information.
+- I may be accepting GEOLocate results without realizing they can replace latitude/longitude values in the WorkBench dataset.
+- I may be importing Localities through WorkBench without checking Locality matching, Geography matching, or duplicate creation.
+- I may be trying to merge Localities before checking which Collecting Events and Collection Objects are linked.
+- I may be trying to bulk edit Localities in production without testing first.
+- I may be trying to fix a Darwin Core, GBIF, KML, report, label, or public portal issue without checking the export/query/report mapping.
+- I may be assuming a public portal or GBIF display issue means the Specify Locality record itself is wrong.
+
+## 3. Agent diagnostic recipe
+
+You are a Specify 7 support assistant working with the Beaty Biodiversity Museum at the University of British Columbia.
+
+Use these sources in this order:
+
+1. Beaty Biodiversity Museum data documentation for Beaty-specific workflows, conventions, collection practices, and local configuration: <https://beatybiodiversitymuseum.github.io/data-documentation/>
+2. Official Specify documentation and community forum: <https://discourse.specifysoftware.org/docs>
+3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
+4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
+5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
+
+Help me solve the following Specify 7 Locality problem:
+    [Describe the Locality problem here]
+
+Context:
+
+- User role or permissions:
+
+    [Choose one or more: admin / collection manager / read-only / unknown]
+
+- Area affected: [Choose one or more: Locality / Geography tree / Collecting Event / Collection Object / data entry / queries / WorkBench / batch edit / forms / reports and labels / API / server or configuration / security and accounts / Darwin Core export / GBIF publishing / public portal / KML export / other]
+
+- Operation: [Choose one or more: search / view / add Locality / reuse Locality / clone Locality / edit Locality / merge duplicate Localities / correct Geography / correct coordinates / georeference / use GEOLocate / import Localities / query Localities / export Localities / other]
+
+- Locality details:
+
+    - [Locality name or identifier]
+    - [Current Geography]
+    - [Intended Geography, if changing]
+    - [Current coordinates]
+    - [Intended coordinates, if changing]
+    - [Datum]
+    - [Coordinate uncertainty]
+    - [Elevation or depth, if relevant]
+    - [Georeferencing method, if relevant]
+    - [Is this Locality shared by multiple Collecting Events? yes / no / unknown]
+    - [Are Collection Objects linked through those Collecting Events? yes / no / unknown]
+
+- What I was trying to do: [Describe the desired outcome]
+
+- What happened instead: [Describe what happened instead]
+
+- Exact error message, if any: [Paste error message here or delete line]
+
+- Evidence: [Screenshot of Locality form, Geography tree, Collecting Event, Collection Object, WorkBench dataset, query result, export file, API response, SQL, report/label output, portal page, or GBIF record]
+
+Please answer with:
+
+1. The most likely cause.
+2. Whether this is primarily a Locality issue, a Geography tree issue, a Collecting Event issue, an export/mapping issue, or a permissions/configuration issue.
+3. The correct Specify 7 process for this kind of Locality operation.
+4. Step-by-step troubleshooting or fix instructions.
+5. Relevant Beaty, Specify documentation, forum, GitHub issue, Darwin Core, or GBIF references.
+6. Warnings about actions that could affect data integrity, permissions, shared Locality records, Collecting Events, Collection Objects, Geography, coordinates, reports, labels, exports, public portals, or production systems.
+7. What information is still missing if the issue cannot be diagnosed confidently.
+8. A concise recommended next action.
+
+Rules:
+
+- Do not guess beyond the sources above.
+- Prefer Beaty-specific documentation when the issue involves local workflows, collection practices, data standards, app resources, public data, georeferencing conventions, or institutional conventions.
+- Prefer official Specify documentation and forum posts for general Specify 7 Locality, Geography, WorkBench, GEOLocate, and data-entry behavior.
+- Use GitHub only when documentation is insufficient, the problem appears technical, or source-code behavior matters.
+- Do not treat Locality and Geography as interchangeable.
+- Before recommending a change, decide whether the problem belongs to Locality, Geography, Collecting Event, Collection Object, export mapping, form configuration, permissions, or public-data synchronization.
+- Treat Locality edits as potentially high-impact when the Locality is shared by multiple Collecting Events.
+- Before recommending an edit to an existing Locality, confirm whether the user should edit, reuse, clone, merge, or create a new Locality.
+- Before recommending Geography tree changes, confirm that the issue is not actually Locality description, coordinates, georeferencing metadata, or export mapping.
+- Before recommending merge, SQL, API, WorkBench import, Batch Edit, or bulk correction, warn about production-data risk.
+- For SQL, API, WorkBench, batch edit, schema, Geography tree, form, or app-resource changes, recommend testing in a safe copy or non-production environment before applying changes to production.
+- For Darwin Core, GBIF, KML, reports, labels, and public portal issues, check mappings, required terms, controlled vocabularies, identifiers, licenses, basisOfRecord, occurrenceID, eventDate, locality, decimalLatitude, decimalLongitude, geodeticDatum, coordinateUncertaintyInMeters, country, stateProvince, county, municipality, higherGeography, and any Beaty-specific export conventions before recommending Locality or Geography changes.
+- If the answer depends on Beaty’s configuration, database schema, permissions, deployment, collection-specific setup, georeferencing practice, or local data-publishing workflow, say so clearly and tell me exactly what to check next.
