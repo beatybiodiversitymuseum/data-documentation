@@ -24,6 +24,7 @@ Choose a recipe, fill in the bracketed fields, remove anything that is not relev
 Start with the most specific template that matches the problem:
 
 - Generic Specify 7 problem: use when the issue does not clearly fit one of the other recipes.
+- Data entry form editing: use for Specify 7 form XML, app resources, form scope, missing fields, subforms, query combo boxes, plugins, labels, layout, or form behavior.
 - Locality operation: use for Locality records, Geography confusion, coordinates, georeferencing, GEOLocate, KML, or locality-related publishing output.
 - Query Builder troubleshooting: use for saved queries, filters, base tables, relationship paths, repeated rows, CSV exports, KML exports, or Record Sets created from queries.
 - Collection statistics troubleshooting: use for counts, dashboards, annual reporting, collection metrics, dashboard-vs-query differences, or GBIF/public portal count differences.

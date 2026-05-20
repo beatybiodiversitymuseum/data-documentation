@@ -1,0 +1,283 @@
+# Data Entry Form Editing
+
+## 1. Correct process
+
+Use this recipe when a user is trying to edit, troubleshoot, customize, copy, restore, or understand a Specify 7 data input form.
+
+Primary Specify references:
+
+- Using Forms in Specify 7: <https://discourse.specifysoftware.org/t/using-forms-in-specify-7/959>
+- Form System: <https://discourse.specifysoftware.org/t/form-system/505>
+- Form Meta Menu: <https://discourse.specifysoftware.org/t/form-meta-menu/1086>
+- App Resources: <https://discourse.specifysoftware.org/t/app-resources/242>
+- Specify Schema & Data Model: <https://discourse.specifysoftware.org/t/view-the-specify-schema-data-model/273>
+
+Use this recipe for problems such as:
+
+- A field is missing from a data entry form
+- A field appears in the wrong place
+- A form layout is confusing or broken
+- A field should be read-only, required, hidden, or relabeled
+- A subform is missing or not behaving as expected
+- A query combo box is showing the wrong records
+- A form change works for one user, collection, or discipline but not another
+- A form XML edit caused an error
+- The wrong form definition is being used
+- A form customization disappeared after switching collection, discipline, or user
+- A form change may affect WorkBench, Batch Edit, reports, labels, queries, exports, or public data interpretation
+
+Important distinction:
+
+Editing a form changes how users enter or view data. It does not necessarily change the database schema.
+
+- A form field must correspond to a real Specify table field or relationship.
+- Adding a field to a form does not create a new database field.
+- Hiding a field from a form does not delete the data.
+- Relabeling a field on a form does not change the underlying field name.
+- A form may expose only part of the database model.
+- Some behavior depends on form XML, app-resource scope, user permissions, table relationships, and collection/discipline configuration.
+
+Correct general process:
+
+1. Identify the form being edited.
+
+    - Confirm the table or record type.
+    - Examples: Collection Object, Collecting Event, Locality, Preparation, Determination, Agent, Taxon, Accession, Loan, Gift, Exchange, Attachment, or other table.
+    - Confirm whether this is a main form, subform, dialog, carry-forward form, search dialog, or relationship form.
+
+2. Identify the scope of the form.
+
+    - Determine whether the form app resource is scoped at institution, division, discipline, collection, or user level.
+    - Confirm which collection and discipline the user is working in.
+    - A form edit may appear in one scope but not another.
+    - Do not assume a form change is global.
+
+3. Confirm the user’s intended change.
+
+    - Add a field
+    - Remove or hide a field
+    - Move a field
+    - Rename a label
+    - Change read-only behavior
+    - Change required/validation behavior
+    - Add or edit a subform
+    - Add or edit a query combo box
+    - Add or edit a plugin
+    - Change form layout/grid spacing
+    - Restore an older form
+    - Copy a form from another scope
+    - Troubleshoot broken XML
+
+4. Check whether the requested field exists in the schema.
+
+    - Look up the table and field in the Specify schema/data model.
+    - Confirm the field belongs to the form’s table or can be reached through a valid relationship.
+    - If the field does not exist, do not recommend simply adding it to the form XML.
+    - If a new database field or schema change is needed, treat this as a higher-risk technical operation.
+
+5. Check whether the issue is form configuration or data model misunderstanding.
+
+    - Locality and Geography are different.
+    - Taxon and Determination are different.
+    - Collection Object, Preparation, and specimen counts are different.
+    - Collector, Determiner, Preparer, Created By, and Modified By are different Agent relationships.
+    - A field visible in Query Builder may not belong directly on the form being edited.
+    - A report/export field may come from a related table rather than the current form table.
+
+6. Back up before editing.
+
+    - Copy the current form XML before making changes.
+    - Save the old version somewhere recoverable.
+    - Record the app-resource name, scope, date, editor, and reason for change.
+    - If possible, test the change in a non-production or safe-copy environment first.
+
+7. Make the smallest possible change.
+
+    - Change one form element at a time.
+    - Save.
+    - Reload the affected form.
+    - Test creating, editing, saving, and reopening a record.
+    - Test with a user role similar to the affected user.
+    - Do not make many layout and behavior changes at once unless the form has already been tested.
+
+8. Validate the XML and layout.
+
+    - Check for malformed XML.
+    - Check missing closing tags.
+    - Check invalid attributes.
+    - Check incorrect field names.
+    - Check incorrect relationship names.
+    - Check duplicate or conflicting component IDs if relevant.
+    - Check layout grid rows/columns and spacing.
+    - Check whether subforms are correctly linked to relationships.
+
+9. Test data-entry behavior.
+
+    - Open an existing record.
+    - Create a new record.
+    - Save the record.
+    - Reopen the record.
+    - Test required fields.
+    - Test query combo boxes.
+    - Test subforms.
+    - Test carry-forward behavior, if relevant.
+    - Test permissions with the intended user role.
+
+10. Check downstream effects.
+
+    - Form changes can affect data-entry consistency, staff workflows, training materials, WorkBench expectations, Batch Edit expectations, reports, labels, queries, Darwin Core exports, GBIF publishing, and public portal interpretation.
+    - A form change may make it easier to enter inconsistent data if local conventions are not documented.
+    - If the form change supports a Beaty-specific workflow, check Beaty documentation and conventions first.
+
+11. If the form breaks, recover safely.
+
+    - Do not keep editing blindly.
+    - Restore the previous working XML if available.
+    - Check whether the problem is limited to one scope.
+    - Check browser console/server logs only if technical debugging is needed.
+    - If a form cannot load, escalate with the app-resource name, scope, XML, error message, and steps to reproduce.
+
+12. If the issue is unclear, collect evidence before giving instructions.
+
+    - Screenshot of the current form
+    - Screenshot or description of the desired layout
+    - App-resource name
+    - App-resource scope
+    - Form XML
+    - Table/record type
+    - User role
+    - Collection/discipline
+    - Exact error message
+    - Browser console or server logs, if relevant
+    - Example record affected
+
+13. Download and attach the current Specify schema before asking an agent for help.
+
+    - Open Specify 7.
+    - Go to the user menu or help/resources area.
+    - Open the Specify Schema or Data Model documentation if available in your instance.
+    - Download or save a copy of the schema/data model reference.
+    - If there is no in-app download option, use the official schema/data-model documentation: <https://discourse.specifysoftware.org/t/view-the-specify-schema-data-model/273>
+    - Attach the schema file or paste the relevant table/field section into the prompt.
+    - For form editing, include the table being edited and any fields, relationships, subforms, or query combo boxes involved.
+    - The agent should use the schema to verify whether a requested field exists, which table it belongs to, and whether it can be placed directly on the form or must be reached through a relationship.
+
+## 2. Common mistakes / user-editable error descriptions
+
+The user can add to, delete from, or check off this list before sending the problem to the agent.
+
+Common data input form editing mistakes:
+
+- I may be trying to add a field to a form that does not exist in the database schema.
+- I may be confusing a form change with a schema change.
+- I may be assuming that adding a form field creates a new database field.
+- I may be assuming that hiding a field deletes or disables the underlying data.
+- I may be editing the wrong form.
+- I may be editing the right form at the wrong app-resource scope.
+- I may be editing a user-level, collection-level, discipline-level, division-level, or institution-level form without realizing it.
+- I may be testing in one collection but expecting the change to appear in another.
+- I may be testing with one user role but expecting another user to see the same form.
+- I may not have permission to edit app resources or forms.
+- I may not have copied/backed up the original form XML before editing.
+- I may have made too many changes at once.
+- I may have malformed XML.
+- I may have a missing closing tag.
+- I may have used the wrong field name.
+- I may have used the display label instead of the underlying database field name.
+- I may have used the wrong relationship path.
+- I may be trying to place a related-table field directly on a form where it does not belong.
+- I may be confusing Locality with Geography.
+- I may be confusing Taxon with Determination.
+- I may be confusing Collector, Determiner, Preparer, Created By, and Modified By agent relationships.
+- I may be trying to solve a Query Builder, report, label, Darwin Core, GBIF, or portal problem by editing a data-entry form.
+- I may have changed a label but expected the underlying field name, export term, or query field to change.
+- I may have hidden a field that is required for data entry, reporting, exports, or local Beaty conventions.
+- I may have removed a field that staff need for quality control.
+- I may have changed a query combo box without checking what records it should search.
+- I may have changed a subform without checking the relationship it represents.
+- I may have changed form layout but not tested creating and saving a new record.
+- I may have tested opening a record but not tested saving and reopening it.
+- I may have ignored role-based permissions when testing the form.
+- I may have changed a shared form that other users or collections depend on.
+- I may have edited production app resources without first testing in a safe copy.
+- I may have changed a form in a way that conflicts with Beaty data-entry conventions.
+
+## 3. Agent diagnostic recipe
+
+You are a Specify 7 support assistant working with the Beaty Biodiversity Museum at the University of British Columbia.
+
+Use these sources in this order:
+
+1. Beaty Biodiversity Museum data documentation for Beaty-specific workflows, conventions, collection practices, and local configuration: <https://beatybiodiversitymuseum.github.io/data-documentation/>
+2. Official Specify documentation and community forum: <https://discourse.specifysoftware.org/docs>
+3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
+4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
+5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
+
+Help me solve the following Specify 7 data input form problem:
+
+    [Describe the form problem here]
+
+Context:
+
+- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
+
+- Area affected: [Choose one or more: forms / app resources / data entry / Collection Object / Collecting Event / Locality / Geography tree / Taxon tree / Determination / Preparation / Agent / Accession / Loan / Gift / Exchange / Attachment / WorkBench / Batch Edit / Query Builder / reports and labels / Darwin Core export / GBIF publishing / public portal / other]
+
+- Form operation: [Choose one or more: view form / edit form XML / add field / remove field / hide field / move field / relabel field / change read-only behavior / change required behavior / add subform / edit subform / add query combo box / edit query combo box / add plugin / edit plugin / change layout / copy form / restore form / troubleshoot broken form / other]
+
+- Form details:
+
+    - [Table or record type]
+    - [Form name, if known]
+    - [App-resource name, if known]
+    - [App-resource scope: user / collection / discipline / division / institution / unknown]
+    - [Collection]
+    - [Discipline]
+    - [User role being tested]
+    - [Field, relationship, subform, or plugin being changed]
+    - [Current behavior]
+    - [Desired behavior]
+
+- What I was trying to do: [Describe the desired outcome]
+
+- What happened instead: [Describe what happened instead]
+
+- Exact error message, if any: [Paste error message here or delete line]
+
+- Evidence: [Screenshot of form, screenshot of desired layout, form XML, app-resource name, app-resource scope, affected record example, browser console error, server log, query result, report/label output, or export example]
+
+Please answer with:
+
+1. The most likely cause.
+2. Whether this is primarily a form XML issue, app-resource scope issue, permissions issue, schema/field issue, relationship-path issue, subform/query-combo-box issue, plugin issue, data-entry workflow issue, or downstream export/display issue.
+3. The correct Specify 7 process for this kind of form change.
+4. Step-by-step troubleshooting or fix instructions.
+5. A safe testing plan before applying the change broadly.
+6. Relevant Beaty, Specify documentation, forum, GitHub issue, Darwin Core, or GBIF references.
+7. Warnings about actions that could affect data integrity, data-entry workflows, app resources, permissions, shared forms, schema assumptions, reports, labels, exports, public portals, or production systems.
+8. What information is still missing if the issue cannot be diagnosed confidently.
+9. A concise recommended next action.
+
+Rules:
+
+- Do not guess beyond the sources above.
+- Prefer Beaty-specific documentation when the issue involves local data-entry workflows, collection practices, field usage, app resources, public data, export conventions, staff training, or institutional conventions.
+- Prefer official Specify documentation and forum posts for general Specify 7 form, app-resource, XML, plugin, subform, query-combo-box, and data-entry behavior.
+- Use GitHub only when documentation is insufficient, the problem appears technical, or source-code behavior matters.
+- Do not assume a form change is the correct fix until schema fields, relationships, app-resource scope, permissions, and downstream uses have been checked.
+- Do not assume Locality and Geography are interchangeable.
+- Do not assume Taxon and Determination are interchangeable.
+- Do not assume a display label is the same as the underlying field name.
+- Before recommending a form edit, confirm the target table, app-resource scope, collection, discipline, and user role.
+- Before recommending adding a field to a form, confirm that the field exists in the Specify schema and belongs on that table or valid relationship.
+- Before recommending removal or hiding of a field, check whether it is required for data entry, quality control, reports, labels, WorkBench, Batch Edit, Darwin Core, GBIF, public portals, or Beaty conventions.
+- Before recommending subform changes, confirm the relationship represented by the subform.
+- Before recommending query combo box changes, confirm what table and records the control should search.
+- Before recommending plugin changes, confirm the plugin’s documented purpose and required configuration.
+- Always recommend copying/backing up the current form XML before editing.
+- Recommend changing one thing at a time and testing create, edit, save, reopen, and role-based behavior.
+- Before changing shared app resources, confirm who else depends on the form and document the change.
+- For SQL, API, WorkBench, Batch Edit, schema, form XML, app-resource, or plugin changes, recommend testing in a safe copy or non-production environment before applying changes to production.
+- For Darwin Core, GBIF, reports, labels, public portals, and institutional reporting, check mappings, required terms, controlled vocabularies, identifiers, licenses, basisOfRecord, occurrenceID, eventDate, scientificName, locality, decimalLatitude, decimalLongitude, geodeticDatum, coordinateUncertaintyInMeters, country, stateProvince, county, municipality, higherGeography, and any Beaty-specific export conventions before treating the form as the problem.
+- If the answer depends on Beaty’s configuration, database schema, permissions, deployment, collection-specific setup, app-resource scope, saved forms, report definitions, export mappings, or local data-publishing workflow, say so clearly and tell me exactly what to check next.

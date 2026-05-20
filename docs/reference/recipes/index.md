@@ -32,6 +32,7 @@ Use these recipes for Specify 7 questions such as:
 
 - Why a Query Builder result looks wrong
 - How to diagnose repeated rows in a query
+- How to edit or troubleshoot Specify 7 data entry forms and app resources
 - How to prepare or troubleshoot a WorkBench upload
 - Whether a locality problem is really a Locality, Geography, coordinate, or export-mapping problem
 - How to approach taxon tree edits, moves, merges, synonymy, or rank issues

@@ -8,6 +8,7 @@ Choose a recipe, edit the prompt, then copy it into your agent.
 
     <select id="recipe-select">
       <option value="generic.txt">Generic Specify 7 problem</option>
+      <option value="data-entry.txt">Data entry form editing</option>
       <option value="taxon.txt">Taxon tree operation</option>
       <option value="locality.txt">Locality operation</option>
       <option value="workbench.txt">WorkBench upload</option>
