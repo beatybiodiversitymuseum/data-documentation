@@ -46,6 +46,7 @@ nav:
         - reference/recipes/index.md
         - reference/recipes/prompt.md
         - Prompt Templates:
+          - reference/recipes/prompt-templates/index.md
           - reference/recipes/prompt-templates/generic.md
           - reference/recipes/prompt-templates/locality.md
           - reference/recipes/prompt-templates/queries.md
