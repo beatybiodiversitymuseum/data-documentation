@@ -44,12 +44,11 @@ They are especially useful when the issue touches multiple systems, such as Spec
 ## How to use a recipe
 
 1. Choose the closest recipe.
-2. Read the correct process if the task is unfamiliar or high-risk.
-3. Review the common mistakes list and keep anything that might apply.
-4. Fill in the bracketed fields in the diagnostic prompt.
-5. Delete fields that are not relevant.
-6. Copy the finished prompt into your GenAI assistant.
-7. Check the answer against Beaty practice, Specify documentation, and production-data risk before acting.
+2. Replace `<fill in your problem here>` at the top with the problem.
+3. Read the correct process if the task is unfamiliar or high-risk.
+4. Review the common mistakes list and keep anything that might apply.
+5. Copy the finished prompt into your GenAI assistant.
+6. Check the answer against Beaty practice, Specify documentation, and production-data risk before acting.
 
 If you are not sure which recipe to use, start with the generic Specify 7 problem template.
 

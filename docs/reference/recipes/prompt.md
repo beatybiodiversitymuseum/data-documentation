@@ -1,6 +1,6 @@
 # Specify 7 Prompt Builder
 
-Choose a recipe, edit the prompt, then copy it into your agent.
+Choose a recipe, replace `<fill in your problem here>` with the problem, then copy it into your agent.
 
 <div class="recipe-builder">
   <div class="recipe-toolbar">

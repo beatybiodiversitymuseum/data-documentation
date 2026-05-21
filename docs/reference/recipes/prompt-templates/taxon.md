@@ -1,5 +1,7 @@
 # Taxon Tree Operation
 
+Problem: &lt;fill in your problem here&gt;
+
 ## 1. Correct process
 
 Use this recipe when a user is trying to perform a taxon tree operation in Specify 7, including viewing, searching, editing, moving, adding, merging, synonymizing, or troubleshooting taxon nodes.
@@ -123,35 +125,6 @@ Use these sources in this order:
 3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
 4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
 5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
-
-Help me solve the following Specify 7 taxon tree problem:
-    [Describe the taxon tree problem here]
-
-Context:
-
-- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
-
-- Area affected: [Choose one or more: taxon tree / data entry / queries / WorkBench / batch edit / forms / reports and labels / API / server or configuration / security and accounts / Darwin Core export / GBIF publishing / public portal / other]
-
-- Tree operation: [Choose one or more: search / view / add node / edit node / move node / merge duplicate nodes / synonymize / undo synonymy / delete node / edit ranks / import taxonomy / query taxonomy / export taxonomy / other]
-
-- Taxon details:
-
-    - [Taxon name]
-    - [Current rank]
-    - [Current parent]
-    - [Intended parent, if moving]
-    - [Accepted taxon or synonym?]
-    - [Does it have children? yes / no / unknown]
-    - [Are collection objects or determinations linked to it? yes / no / unknown]
-
-- What I was trying to do: [Describe the desired outcome]
-
-- What happened instead: [Describe what happened instead]
-
-- Exact error message, if any: [Paste error message here or delete line]
-
-- Evidence: [Screenshot of tree, logs, API response, query result, WorkBench dataset, SQL, export file, or app-resource details]
 
 Please answer with:
 

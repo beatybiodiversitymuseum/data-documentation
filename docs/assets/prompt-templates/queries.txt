@@ -1,5 +1,7 @@
 # Query Builder Troubleshooting
 
+Problem: <fill in your problem here>
+
 ## 1. Correct process
 
 Use this recipe when a user is trying to build, run, troubleshoot, export, or reuse a query in Specify 7.
@@ -188,45 +190,6 @@ Use these sources in this order:
    https://dwc.tdwg.org/
 5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks:
    https://www.gbif.org/
-
-Help me solve the following Specify 7 Query Builder problem:
-    [Describe the Query Builder problem here]
-
-Context:
-
-- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
-
-- Area affected: [Choose one or more: Query Builder / Simple Search / Record Sets / CSV export / KML export / Collection Object / Collecting Event / Locality / Geography tree / Taxon tree / Determination / Preparation / Agent / Storage / attachments / WorkBench / Batch Edit / forms / reports and labels / API / Darwin Core export / GBIF publishing / public portal / other]
-
-- Query operation: [Choose one or more: create query / edit saved query / run query / filter records / add related fields / export CSV / create KML / create Record Set / find duplicates / audit uploaded records / compare to report or label / compare to Darwin Core or GBIF / compare to portal / other]
-
-- Query details:
-
-    - [Saved query name, if any]
-    - [Base table]
-    - [Expected result type, e.g. one row per Collection Object, Locality, Taxon, Agent, etc.]
-    - [Expected row count]
-    - [Actual row count]
-    - [Fields included]
-    - [Filters/operators used]
-    - [Sort order, if relevant]
-    - [Distinct/grouped query? yes / no / unknown]
-    - [Shared query? yes / no / unknown]
-
-- Example records:
-
-    - [Example record that should appear but does not]
-    - [Example record that appears but should not]
-    - [Example duplicate-looking rows]
-    - [Example exported CSV row, if relevant]
-
-- What I was trying to do: [Describe the desired outcome]
-
-- What happened instead: [Describe what happened instead]
-
-- Exact error message, if any: [Paste error message here or delete line]
-
-- Evidence: [Screenshot of query fields, relationship path, filters, results, CSV export, Record Set, report/label output, Darwin Core/GBIF output, portal output, API response, SQL, or affected records]
 
 Please answer with:
 

@@ -1,5 +1,7 @@
 # Locality Operation
 
+Problem: &lt;fill in your problem here&gt;
+
 ## 1. Correct process
 
 Use this recipe when a user is trying to perform a Locality-related operation in Specify 7, including creating, editing, reusing, cloning, merging, georeferencing, importing, querying, exporting, or troubleshooting Locality records.
@@ -154,41 +156,6 @@ Use these sources in this order:
 3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
 4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
 5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
-
-Help me solve the following Specify 7 Locality problem:
-    [Describe the Locality problem here]
-
-Context:
-
-- User role or permissions:
-
-    [Choose one or more: admin / collection manager / read-only / unknown]
-
-- Area affected: [Choose one or more: Locality / Geography tree / Collecting Event / Collection Object / data entry / queries / WorkBench / batch edit / forms / reports and labels / API / server or configuration / security and accounts / Darwin Core export / GBIF publishing / public portal / KML export / other]
-
-- Operation: [Choose one or more: search / view / add Locality / reuse Locality / clone Locality / edit Locality / merge duplicate Localities / correct Geography / correct coordinates / georeference / use GEOLocate / import Localities / query Localities / export Localities / other]
-
-- Locality details:
-
-    - [Locality name or identifier]
-    - [Current Geography]
-    - [Intended Geography, if changing]
-    - [Current coordinates]
-    - [Intended coordinates, if changing]
-    - [Datum]
-    - [Coordinate uncertainty]
-    - [Elevation or depth, if relevant]
-    - [Georeferencing method, if relevant]
-    - [Is this Locality shared by multiple Collecting Events? yes / no / unknown]
-    - [Are Collection Objects linked through those Collecting Events? yes / no / unknown]
-
-- What I was trying to do: [Describe the desired outcome]
-
-- What happened instead: [Describe what happened instead]
-
-- Exact error message, if any: [Paste error message here or delete line]
-
-- Evidence: [Screenshot of Locality form, Geography tree, Collecting Event, Collection Object, WorkBench dataset, query result, export file, API response, SQL, report/label output, portal page, or GBIF record]
 
 Please answer with:
 

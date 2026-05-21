@@ -1,5 +1,7 @@
 # WorkBench Upload
 
+Problem: <fill in your problem here>
+
 ## 1. Correct process
 
 Use this recipe when a user is trying to upload data into Specify 7 through the WorkBench, including new records, related records, taxonomy, localities, collecting events, preparations, determinations, agents, attachments, or other structured data.
@@ -190,54 +192,6 @@ Use these sources in this order:
    https://dwc.tdwg.org/
 5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks:
    https://www.gbif.org/
-
-Help me solve the following Specify 7 WorkBench upload problem:
-    [Describe the WorkBench upload problem here]
-
-Context:
-
-- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
-
-- Area affected: [Choose one or more: WorkBench / data entry / batch edit / Collection Object / Collecting Event / Locality / Geography tree / Taxon tree / Determination / Preparation / Agent / Storage / attachments / queries / forms / reports and labels / API / server or configuration / security and accounts / Darwin Core export / GBIF publishing / public portal / other]
-
-- Upload operation: [Choose one or more: import dataset / map columns / validate dataset / resolve matching / upload new records / update existing records / upload attachments / upload taxonomy / upload localities / upload collecting events / upload collection objects / upload determinations / upload preparations / save upload plan / reuse upload plan / other]
-
-- Batch status: [Choose one: planning only / test batch / full dataset / already uploaded / upload failed / validation stuck / unknown]
-
-- Dataset details:
-
-    - [File type: CSV / XLSX / TSV / other]
-    - [Approximate row count]
-    - [Approximate column count]
-    - [Was a small test batch used? yes / no / unknown]
-    - [Target collection or discipline]
-    - [Target table or main record type]
-    - [Does the upload create new records? yes / no / unknown]
-    - [Does the upload update or match existing records? yes / no / unknown]
-    - [Does the upload touch shared records such as Localities, Agents, Taxa, Geography, or Collecting Events? yes / no / unknown]
-
-- Mapping details:
-
-    - [Were columns mapped manually, with AutoMapper, or both?]
-    - [Was an upload plan used? yes / no / unknown]
-    - [Was the upload plan reused from another dataset? yes / no / unknown]
-    - [Which fields/tables are mapped?]
-    - [Any columns intentionally not mapped?]
-
-- Validation details:
-
-    - [Validation status]
-    - [Number or type of invalid cells, if known]
-    - [Matching ambiguity messages, if any]
-    - [Pick list, formatter, required field, date, coordinate, or relationship errors, if any]
-
-- What I was trying to do: [Describe the desired outcome]
-
-- What happened instead: [Describe what happened instead]
-
-- Exact error message, if any: [Paste error message here or delete line]
-
-- Evidence: [Screenshot of WorkBench grid, mapping, validation panel, upload result, error message, source-file sample, upload plan JSON, logs, API response, query result, or affected records]
 
 Please answer with:
 

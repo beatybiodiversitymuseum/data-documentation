@@ -1,5 +1,7 @@
 # Data Entry Form Editing
 
+Problem: &lt;fill in your problem here&gt;
+
 ## 1. Correct process
 
 Use this recipe when a user is trying to edit, troubleshoot, customize, copy, restore, or understand a Specify 7 data input form.
@@ -213,39 +215,6 @@ Use these sources in this order:
 3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
 4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
 5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
-
-Help me solve the following Specify 7 data input form problem:
-
-    [Describe the form problem here]
-
-Context:
-
-- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
-
-- Area affected: [Choose one or more: forms / app resources / data entry / Collection Object / Collecting Event / Locality / Geography tree / Taxon tree / Determination / Preparation / Agent / Accession / Loan / Gift / Exchange / Attachment / WorkBench / Batch Edit / Query Builder / reports and labels / Darwin Core export / GBIF publishing / public portal / other]
-
-- Form operation: [Choose one or more: view form / edit form XML / add field / remove field / hide field / move field / relabel field / change read-only behavior / change required behavior / add subform / edit subform / add query combo box / edit query combo box / add plugin / edit plugin / change layout / copy form / restore form / troubleshoot broken form / other]
-
-- Form details:
-
-    - [Table or record type]
-    - [Form name, if known]
-    - [App-resource name, if known]
-    - [App-resource scope: user / collection / discipline / division / institution / unknown]
-    - [Collection]
-    - [Discipline]
-    - [User role being tested]
-    - [Field, relationship, subform, or plugin being changed]
-    - [Current behavior]
-    - [Desired behavior]
-
-- What I was trying to do: [Describe the desired outcome]
-
-- What happened instead: [Describe what happened instead]
-
-- Exact error message, if any: [Paste error message here or delete line]
-
-- Evidence: [Screenshot of form, screenshot of desired layout, form XML, app-resource name, app-resource scope, affected record example, browser console error, server log, query result, report/label output, or export example]
 
 Please answer with:
 

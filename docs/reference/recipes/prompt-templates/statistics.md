@@ -1,5 +1,7 @@
 # Statistics Troubleshooting
 
+Problem: &lt;fill in your problem here&gt;
+
 ## 1. Correct process
 
 Use this recipe when a user is trying to create, check, explain, export, or troubleshoot collection statistics in Specify 7.
@@ -212,48 +214,6 @@ Use these sources in this order:
 3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details: <https://github.com/specify/specify7>
 4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance: <https://dwc.tdwg.org/>
 5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks: <https://www.gbif.org/>
-
-Help me solve the following Specify 7 collection statistics problem:
-    [Describe the collection statistics problem here]
-
-Context:
-
-- User role or permissions: [Choose one or more: admin / collection manager / read-only / unknown]
-
-- Area affected: [Choose one or more: Statistics Page / Collection Preferences / Query Builder / Record Sets / reports and labels / CSV export / TSV export / Collection Object / Preparation / Collecting Event / Locality / Geography tree / Taxon tree / Determination / Agent / Storage / attachments / WorkBench / Batch Edit / Darwin Core export / GBIF publishing / public portal / API / SQL / other]
-
-- Statistic requested: [Describe the statistic, e.g. total cataloged Collection Objects, total preparations, georeferenced records, records by taxon, records by collection, records published to GBIF]
-
-- Count unit: [Choose one or more: Collection Objects / specimens / lots / preparations / containers / Collecting Events / Localities / Taxa / Determinations / Agents / Attachments / Accessions / Record Set members / Darwin Core occurrences / other]
-
-- Scope:
-
-    - [Collection]
-    - [Discipline]
-    - [Institution/division, if relevant]
-    - [Date range]
-    - [Taxonomic scope]
-    - [Geographic scope]
-    - [Preparation type]
-    - [Catalog-number range]
-    - [Publication status]
-    - [Include/exclude uncataloged, deaccessioned, restricted, hidden, inactive, or unpublished records?]
-
-- Source of statistic: [Choose one or more: Statistics Page / Query Builder / saved query / Record Set / report / label / CSV export / TSV export / SQL / API / Darwin Core archive / GBIF / public portal / other]
-
-- Current result: [Actual count or chart result]
-
-- Expected result: [Expected count or chart result]
-
-- Comparison target: [What the number is being compared against, if any]
-
-- What I was trying to do: [Describe the desired outcome]
-
-- What happened instead: [Describe what happened instead]
-
-- Exact error message, if any: [Paste error message here or delete line]
-
-- Evidence: [Screenshot of Statistics Page card/chart, Collection Preferences, Query Builder fields/filters/results, saved query name, Record Set, report, CSV/TSV export, SQL/API result, Darwin Core file, GBIF dataset page, portal page, or example records]
 
 Please answer with:
 

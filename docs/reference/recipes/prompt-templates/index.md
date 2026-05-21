@@ -17,7 +17,7 @@ Use the interactive prompt builder:
 
 - [Prompt builder](../prompt.md)
 
-Choose a recipe, fill in the bracketed fields, remove anything that is not relevant, then copy the finished prompt into your GenAI assistant.
+Choose a recipe, replace `<fill in your problem here>` with the problem, then copy the finished prompt into your GenAI assistant.
 
 ## Choose a template
 
@@ -33,19 +33,20 @@ Start with the most specific template that matches the problem:
 
 If more than one template seems relevant, choose the one closest to the action you are about to take. For example, if a bad query result is making a statistic look wrong, start with Query Builder. If a statistic definition is unclear, start with Collection statistics.
 
-## Fill in bracketed fields
+## Add the Problem
 
-Square brackets mark fields for you to edit.
+The only required edit is the one-line problem field at the top of the template.
 
-- Replace bracketed text with the real details when you know them.
-- Leave `unknown` when that is the honest answer.
-- Delete lines that are not relevant.
-- Keep examples concrete: record numbers, saved query names, exact field names, error messages, row counts, screenshots, export snippets, or affected records.
-- Do not include passwords, API keys, private credentials, or personal data that is not needed for the support question.
+Keep it simple. One sentence is enough.
 
-Fields such as `[Choose one or more: ...]` are menus. Pick every option that applies, or replace the whole bracket with your own wording.
+- Start here: `Problem: <fill in your problem here>`
+- Good: `Problem: My WorkBench upload says the dataset is validating forever.`
+- Good: `Problem: My query returns duplicate-looking collection objects.`
+- Good: `Problem: I cannot find the locality field I need on the form.`
 
-Fields grouped under headings such as `Query details`, `Dataset details`, `Scope`, or `Taxon details` are prompts for evidence. Fill as many as you can. The assistant should say what is still missing if it cannot diagnose the issue confidently.
+Do not include passwords, API keys, private credentials, or personal data that is not needed for the support question.
+
+If the assistant needs more information, it should ask for it.
 
 ## Use the page sections
 
@@ -75,7 +76,7 @@ For these cases, include the collection, discipline, permissions, target records
 
 ## Good prompt habits
 
-Good prompts are specific about the goal and the evidence.
+Good prompts are specific about the goal and the evidence. If you have details handy, you can add them after the one-line problem, but you do not need to fill out a form.
 
 - Say what you were trying to do.
 - Say what happened instead.
