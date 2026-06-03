@@ -13,6 +13,7 @@ Here is a list of the upcoming topics for the seminar.
 
 | Date          | Topic                                              | Presenter                                 |
 |---------------|----------------------------------------------------|-------------------------------------------|
+| Jun 03, 2026  | [Image Segmentation](15-image-segmentation)        | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
 | May 20, 2026  | [GenAI Recipes](14-recipes)                        | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
 | May 04, 2026  | [Museum Mapping](13-mapping)                       | [Ethaniel Chou](mailto:paul.bucci@ubc.ca) |
 | Apr 22, 2026  | [CHI Report](12-chi)                               | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
