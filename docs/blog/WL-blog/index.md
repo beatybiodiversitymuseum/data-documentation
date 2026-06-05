@@ -103,3 +103,51 @@ Parts of this pipeline will incorporate LangGraph and SAM3, so learning about th
 ### Notebooks
 
 [Week 3 – DwCA Export Package](https://github.com/beatybiodiversitymuseum/DwCA-API-Exports)
+
+## Week 4, May 26th - 28th
+
+### Tasks
+
+Rather than going straight into an OCR pipeline using Langgraph, this week I collaborated on a pipeline which uses Langgraph, but is designed to resolve duplicate localities.
+
+### Methods
+
+The Langgraph docs were a big help when learning and constructing the graph (<https://docs.langchain.com/oss/python/langgraph/overview>). In the system we created, Langgraph acts as an orchestrator, pulling specimen records using Specify's API, sending them through nodes which find candidate locality matches, and searching for different types of matches within candidate groups.
+
+### Resolved Problems
+
+One of the problems I wanted to highlight for this week was the algorithm which sorts candidate match groups into different levels of matches. The end result we wanted would go through a list of candidates and sort into three groups: perfect matches, spelling matches, and no matches. Perfect matches would be those in which all columns were exactly the same, spelling matches where all columns were the same but locality name may have different cases (e.g. 'Vancouver' vs. 'vancouver'), and no matches where localities, despite possibly sharing a name, were proven to be different by other columns.
+
+The pseudocode / half real-code solution we worked on ended up looking like this:
+
+while candidate_list:
+    c = candidate_list.pop(0) #pops off the first locality on the list
+
+    staged_perfect_matches = []
+    staged_no_case_matches = []
+    staged_no_match = []
+
+    #first for loop to test for perfect equivalency
+
+    for i in candidate_list: #for every candidate in candidate_list, test c against them
+        if complete (all columns) match i,c:
+            add i (using index) to staged_perfect_matches
+            add c to staged perfect matches
+        else:
+            pass #should move onto testing the next condition - no case match
+    for i in candidate_list:
+        if i.name.lower == c.name.lower AND all other columns match:
+            add i (using index) to staged_perfect_matches
+            add c to staged perfect matches
+        else:
+            add c to staged_no_match
+
+And this, once turned into functioning code, ended up working quite well.
+
+### Next Week
+
+Despite figuring out our sorting algorithm, this project still has a lot more left to do within it! Next steps involve incorporating an LLM and figuring out what happens after candidates have been sorted into groups.
+
+### Notebooks
+
+[Week 3 – Langgraph Locality Orchestration](https://github.com/beatybiodiversitymuseum/Orchestration)
