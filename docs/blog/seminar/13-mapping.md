@@ -12,6 +12,5 @@ search:
 Today we have a very exciting day where my directed studies student, Ethaniel, will give a short talk and demonstration of his excellent work on using agentic AI to produce museum maps. List of links below, but the live demo will be more impressive!
  
 ## Notes
-- Mapping: https://beatybiodiversitymuseum.github.io/data-documentation/map/
-- Searchable museum floor: https://beatybiodiversitymuseum.github.io/data-documentation/map/searchable-museum-floor/displays/
-- Demo (no AI): https://beatybiodiversitymuseum.github.io/data-documentation/map/generated-journeys/demo/
+- Mapping: https://apps.beatymuseum.ubc.ca/map
+- Mapping repository: https://github.com/beatybiodiversitymuseum/indoor-mapping/

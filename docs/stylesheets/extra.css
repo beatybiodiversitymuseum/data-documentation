@@ -18,3 +18,25 @@
     --md-typeset-a-color: #f3bbdd;
     --md-text-link-color: #f3bbbd;
   }
+.md-nav__link[href="https://apps.beatymuseum.ubc.ca/map"]::before,
+.md-nav__link[href="https://github.com/beatybiodiversitymuseum/indoor-mapping/"]::before {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 0.35rem;
+  flex: 0 0 1.1rem;
+  background-color: currentcolor;
+  content: "";
+  vertical-align: -0.2rem;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+.md-nav__link[href="https://apps.beatymuseum.ubc.ca/map"]::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.5 3 14 5.5 7.5 3 1 5.5V21l6.5-2.5L14 21l6.5-2.5V3M8 5.47l5 1.93v11.13l-5-1.93V5.47M3 6.87l3-1.15v10.91l-3 1.15V6.87m16 10.26-4 1.54V7.37l4-1.54v11.3Z'/%3E%3C/svg%3E");
+}
+
+.md-nav__link[href="https://github.com/beatybiodiversitymuseum/indoor-mapping/"]::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 3a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3v2H8a4 4 0 0 0-4 4v2H2l3 3 3-3H6v-2a2 2 0 0 1 2-2h3v2a2 2 0 1 0 2 0v-6h3a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8m0 2h8v4H8V5Z'/%3E%3C/svg%3E");
+}

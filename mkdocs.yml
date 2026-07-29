@@ -39,6 +39,7 @@ nav:
           - portal/how-to/access-data-programmatically.md
   - Reference:
       - reference/index.md
+      - reference/apps.md
       - reference/key-reference.md
       - reference/filter-terms.md
 
@@ -57,28 +58,14 @@ nav:
 
       - Queries:
         - reference/queries/index.md
+        - reference/queries/schema-browser.md
         - reference/queries/saved-queries.md
-        
-        - Schemas:
-          - reference/queries/index.md
-          - reference/queries/algae/index.md
-          - reference/queries/birds/index.md
-          - reference/queries/bryophytes/index.md
-          - reference/queries/entomology/index.md
-          - reference/queries/fishes/index.md
-          - reference/queries/fungi/index.md
-          - reference/queries/herpetology/index.md
-          - reference/queries/lichen/index.md
-          - reference/queries/mammals/index.md
-          - reference/queries/miv/index.md
-          - reference/queries/paleontology/index.md
-          - reference/queries/teaching/index.md
-      - Mapping:
-        - map/index.html
+      - Indoor Mapping:
+        - Open the Indoor Map: https://apps.beatymuseum.ubc.ca/map
         - map/using-the-wayfinder.md
         - map/adding-to-map.md
-        - map/searchable-museum-floor/index.md
-        - map/generated-journeys/index.md
+        - reference/indoor-map.md
+        - Source Repository: https://github.com/beatybiodiversitymuseum/indoor-mapping/
   - Notes:
       - blog/index.md
       - blog/seminar/index.md

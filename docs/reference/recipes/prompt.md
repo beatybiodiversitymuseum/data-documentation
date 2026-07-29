@@ -1,3 +1,8 @@
+---
+title: "Specify 7 Prompt Builder"
+icon: material/text-box-edit-outline
+---
+
 # Specify 7 Prompt Builder
 
 Choose a recipe, replace `<fill in your problem here>` with the problem, then copy it into your agent.

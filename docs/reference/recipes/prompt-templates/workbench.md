@@ -1,3 +1,8 @@
+---
+title: "WorkBench Upload"
+icon: material/tray-arrow-up
+---
+
 # WorkBench Upload
 
 Problem: &lt;fill in your problem here&gt;

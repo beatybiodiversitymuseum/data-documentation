@@ -1,3 +1,8 @@
+---
+title: "Statistics Troubleshooting"
+icon: material/chart-box-outline
+---
+
 # Statistics Troubleshooting
 
 Problem: &lt;fill in your problem here&gt;

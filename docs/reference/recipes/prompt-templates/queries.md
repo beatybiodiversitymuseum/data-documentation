@@ -1,3 +1,8 @@
+---
+title: "Query Builder Troubleshooting"
+icon: material/database-search-outline
+---
+
 # Query Builder Troubleshooting
 
 Problem: &lt;fill in your problem here&gt;

@@ -1,3 +1,8 @@
+---
+title: "Generic Prompt"
+icon: material/lightbulb-on-outline
+---
+
 # Generic Prompt
 
 Problem: &lt;fill in your problem here&gt;

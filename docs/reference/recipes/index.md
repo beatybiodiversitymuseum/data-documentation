@@ -1,5 +1,6 @@
 ---
 title: "Use GenAI with Specify"
+icon: material/robot-outline
 tags:
     - queries
     - search

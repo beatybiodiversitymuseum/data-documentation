@@ -1,5 +1,6 @@
 ---
 title: "GenAI Prompt Templates"
+icon: material/text-box-multiple-outline
 tags:
     - prompt
     - genai

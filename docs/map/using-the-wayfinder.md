@@ -1,29 +1,66 @@
 ---
-title: "Using the Wayfinder"
-icon: octicons/location-16
+title: "Using the Indoor Map"
+icon: material/navigation-variant-outline
 ---
 
+# Using the Beaty Indoor Map
 
-The [Wayfinding Pathfinder](https://beatybiodiversitymuseum.github.io/data-documentation/map/) has been created to aide with indoor mapping at the Beaty. It currently includes a map of the Beaty's indoor fixtures, including all display boxes, cabinets, and fossil excavations. It will automatically generate a path between two or more fixtures.
+The [Beaty Indoor Map](https://apps.beatymuseum.ubc.ca/map) is the current
+viewer for the museum's indoor mapping data. The map application is hosted
+separately from this documentation and replaces the previous
+documentation-hosted viewer.
 
-The purpose of having this tool available is to create custom narrative journeys through the Beaty. Interpreters and volunteers can customize a journey through the museum. For example, the following journey was created:
+Use the current map to:
 
-## Museum Journey: Bears and Berries
+- show or hide indoor mapping layers;
+- switch between ground and basement features;
+- search for mapped fixtures and destinations;
+- select a feature and inspect its properties; and
+- create a walking route between supported fixtures or exhibits.
 
-**Journey Description:** Make connections with bears and biodiversity throughout the museum.
+## Find a feature
 
-| Location Notes | Location ID | Specimen / Display | Short write-up |
-|---|---|---|---|
-| 04.08 | col_04_cab_08 | Bear Skulls | Polar bears, brown bears, black bears, and spirit bears can all be found in Western Canada. Can you find all three bear skulls in this row? |
-| Burst of Biodiversity (by 8.01) | wp_020 | Tardigrade | Tardigrades are animals that can withstand extremes, like bears that hibernate! Their common name is water bear, can you see the similarities? |
-| D099 (beside 28.24) | di_28_18_top | Fruits, flowers, roses | Many of bears’ favourite fruits come from the rose family, like rose hips and salmonberries. How do fruits form from flowers, and how many types of fruits are out there? |
-| 38.14 (S109) | col_38_cab_14 | Insect duties | Insects are important berry pollinators, which means they are important for bears! What other jobs do insects have in our forests? |
-| 41.09 | col_41_cab_09 | Salmon | Bears are known for eating salmon, and lots of them! There are five species of salmon in our province that provide abundant food for bears. |
-| Row 52 | fossil_excavation_9 | Fossils | While we don’t have fruit or bears in our fossil displays, can you find an amazing berried (buried!) plant or animal fossil in this collection? |
+Use the search control to find a mapped fixture or destination, or select a
+feature directly on the map. The inspector displays the information recorded
+for the selected feature, including useful identifiers and source-issue
+details when available.
 
+The map distinguishes physical fixtures from visitor-facing destinations:
 
-## Making Your Own Journey
-Just like the above example, create a table with location notes, the location ID, which specimen to focus on, and a short write-up. You can figure out the Location IDs using the [Wayfinding Pathfinder](https://beatybiodiversitymuseum.github.io/data-documentation/map/). It allows you to look up items by Column and Cabinet number. If you're not sure what the number would be, you can also hover over a location in the map to see the ID. Some points have been made that are just corridors, which will also have waypoint IDs. If something is close to a waypoint, like the Tardigrade in the above example, you can select that waypoint instead of a Cabinet. Or, for the whole of Row 52, you can choose an emblematic point like the fossil excavation in the middle of the column.
+- **Fixtures** are polygons representing cabinets and drawer/island boxes.
+- **Amenities** are searchable exhibit or viewing points associated with
+  fixtures or fossil excavations.
+- **Details** include mapped physical features such as the walkable,
+  glass-covered fossil excavation areas.
 
-## Adding to the Map
-This is only the first version of the map, and we would like to add more features to it. If you'd like to help add to the map, see [Adding to the Map](/data-documentation/map/adding-to-map/) on the sidebar for instructions.
+## Create a route
+
+1. [Open the Indoor Map](https://apps.beatymuseum.ubc.ca/map).
+2. Search for a fixture or select one on the map.
+3. In the inspector, choose **Start here**.
+4. Select another supported feature.
+5. Choose **Route here**.
+
+The route follows only locally confirmed pedestrian paths and connections. It
+does not treat the entire museum-floor polygon as freely walkable, route
+through cabinets, or invent a shortcut when no approved connection exists. If
+a destination is not connected to the confirmed routing network, the viewer
+reports that no approved route is available.
+
+## Understand route results
+
+Routing minimizes distance along the approved line network stored in
+[`geojson/navigation.geojson`](https://github.com/beatybiodiversitymuseum/indoor-mapping/blob/main/geojson/navigation.geojson).
+Intersections between confirmed walking and connection lines form routing
+junctions. Connections ending at fixtures remain terminal so a route cannot
+pass through a cabinet on the way to another destination.
+
+If a route or feature appears incorrect, do not edit this documentation.
+Follow [Adding to the Indoor Map](adding-to-map.md) to report the correction
+to the map's source repository.
+
+## More information
+
+- [Indoor mapping data reference](../reference/indoor-map.md)
+- [Indoor mapping source repository](https://github.com/beatybiodiversitymuseum/indoor-mapping/)
+- [Open the Beaty Indoor Map](https://apps.beatymuseum.ubc.ca/map)

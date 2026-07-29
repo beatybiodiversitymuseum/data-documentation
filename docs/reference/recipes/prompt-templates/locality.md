@@ -1,3 +1,8 @@
+---
+title: "Locality Operation"
+icon: material/map-marker-radius-outline
+---
+
 # Locality Operation
 
 Problem: &lt;fill in your problem here&gt;
