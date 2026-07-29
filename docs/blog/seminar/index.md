@@ -13,6 +13,10 @@ Here is a list of the upcoming topics for the seminar.
 
 | Date          | Topic                                              | Presenter                                 |
 |---------------|----------------------------------------------------|-------------------------------------------|
+| Jul 29, 2026  | [Publication automation](18-automation)            | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
+| Jul 15, 2026  | [Image automation](17-image-automation)            | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
+| Jul 01, 2026  | Canada Day                                         | -                                         |
+| Jun 17, 2026  | [Labels](16-labels)                                | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
 | Jun 03, 2026  | [Image Segmentation](15-image-segmentation)        | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
 | May 20, 2026  | [GenAI Recipes](14-recipes)                        | [Paul Bucci](mailto:paul.bucci@ubc.ca)    |
 | May 04, 2026  | [Museum Mapping](13-mapping)                       | [Ethaniel Chou](mailto:paul.bucci@ubc.ca) |
