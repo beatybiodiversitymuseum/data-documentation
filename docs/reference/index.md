@@ -18,5 +18,9 @@ museum resources:
 - [Indoor Map](https://apps.beatymuseum.ubc.ca/map) explores the museum's
   indoor mapping data. See the [Indoor mapping guide](indoor-map.md) for usage,
   data, and contribution details.
+- [Service Status](https://apps.beatymuseum.ubc.ca/status) reports the current
+  availability and recent history of the museum's digital services. See the
+  [service status guide](service-status.md) for interpretation and
+  troubleshooting guidance.
 
 See [Museum applications](apps.md) for more information and source-code links.
