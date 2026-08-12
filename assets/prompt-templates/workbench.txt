@@ -1,0 +1,224 @@
+# WorkBench Upload
+
+Problem: <fill in your problem here>
+
+## 1. Correct process
+
+Use this recipe when a user is trying to upload data into Specify 7 through the WorkBench, including new records, related records, taxonomy, localities, collecting events, preparations, determinations, agents, attachments, or other structured data.
+
+Primary Specify references:
+
+- The Specify 7 WorkBench:
+  https://discourse.specifysoftware.org/t/the-specify-7-workbench/540
+- WorkBench, Batch Edit, or Merging Stuck?
+  https://discourse.specifysoftware.org/t/workbench-batch-edit-or-merging-stuck/2889
+- Export Data Set Upload Plan:
+  https://discourse.specifysoftware.org/t/export-data-set-upload-plan/809
+- Specify Schema & Data Model:
+  https://discourse.specifysoftware.org/t/view-the-specify-schema-data-model/273
+
+Core recommendation:
+
+Do not try to upload the full dataset at once.
+
+Always begin with a small, representative test batch. Use the test batch to confirm mapping, required fields, formatting, matching behavior, validation errors, duplicate handling, and downstream effects before uploading the full dataset.
+
+A good test batch should include:
+
+- A few simple rows that should upload cleanly
+- Rows with existing related records that should match
+- Rows with new related records that should be created
+- Rows with edge cases, such as missing optional values, unusual dates, special characters, coordinates, long text, duplicate names, or controlled values
+- Rows from each major category of data being uploaded
+
+Correct general process:
+
+1. Identify what kind of upload this is.
+
+    - New Collection Objects
+    - New Collecting Events
+    - New Localities
+    - New Taxa
+    - New Determinations
+    - New Preparations
+    - New Agents
+    - Attachments
+    - Updates to existing records
+    - Mixed new and existing records
+    - Other related-table data
+
+2. Confirm whether WorkBench is the right tool.
+
+    - Use WorkBench for structured imports where columns can be mapped to Specify fields.
+    - Use Batch Edit when the goal is to edit existing records in bulk.
+    - Use manual entry for small, complex, uncertain, or high-risk changes.
+    - Use SQL/API only when documentation or technical need supports it, and only with testing and backup.
+
+3. Prepare the source file.
+
+    - Use a clean CSV or spreadsheet.
+    - Remove extra header rows, notes, formulas, merged cells, hidden columns, and ambiguous column names.
+    - Standardize dates, numbers, coordinates, controlled terms, catalog numbers, agent names, taxon names, and locality values before import.
+    - Preserve an untouched copy of the original source file.
+    - Create a working copy for cleanup.
+    - Create a small test-batch file before the full upload.
+
+4. Confirm required fields and relationships.
+
+    - Identify the target table or workflow.
+    - Identify required fields.
+    - Identify related records that must already exist or must be created during upload.
+    - Check whether the data depends on Collection Object, Collecting Event, Locality, Geography, Taxon, Determination, Preparation, Agent, Storage, or other related tables.
+    - Review the Specify schema/data model if the relationship path is unclear.
+
+5. Import the small test batch into WorkBench.
+
+    - Create a new WorkBench dataset.
+    - Import only the test batch.
+    - Confirm the dataset displays correctly.
+    - Check encoding, special characters, blank cells, date parsing, numeric parsing, and coordinate parsing.
+
+6. Map columns carefully.
+
+    - Use AutoMapper only as a starting point.
+    - Manually review every mapping.
+    - Confirm the correct table and field for each column.
+    - Confirm relationship paths, especially for fields with similar names.
+    - Confirm that Locality is not confused with Geography.
+    - Confirm that Taxon fields are mapped to the intended tree/rank fields.
+    - Confirm that Agent fields are mapped consistently.
+    - Remove or ignore columns that should not be uploaded.
+
+7. Validate the test batch.
+
+    - Run validation before upload.
+    - Review every invalid cell.
+    - Use validation messages and tooltips where available.
+    - Fix data problems in the source file or WorkBench as appropriate.
+    - Revalidate after changes.
+    - Do not upload until validation results are understood.
+
+8. Check matching and duplicate behavior.
+
+    - Confirm whether WorkBench is matching existing records or creating new records.
+    - Pay special attention to Localities, Agents, Taxa, Geography, Collecting Events, and Collection Objects.
+    - If a value may match multiple records, resolve ambiguity before upload.
+    - If duplicates are being created, stop and revise the mapping or source data.
+    - If existing records are being matched incorrectly, stop and revise the matching fields.
+
+9. Upload only the test batch first.
+
+    - Upload the small test batch.
+    - Inspect the records created or updated in Specify.
+    - Query the uploaded records.
+    - Check linked records and relationships.
+    - Check forms, labels, reports, exports, and public-data implications if relevant.
+    - If anything looks wrong, stop before uploading more data.
+
+10. Save or export the upload plan if it will be reused.
+
+    - Once the mapping is confirmed, export or preserve the upload plan.
+    - Reuse the upload plan for similar batches only after confirming the source columns still match.
+
+11. Scale up gradually.
+
+    - Upload the full dataset in manageable batches.
+    - Prefer batches that are easy to identify, audit, and roll back conceptually.
+    - After each batch, spot-check records before continuing.
+    - Keep a record of file name, date uploaded, user, row count, mapping/upload plan, and any known issues.
+
+12. If validation or upload gets stuck, check the Worker.
+
+    - If the WorkBench remains stuck on “Data Set Validation Status” without progress, this may indicate a problem with the Specify 7 background Worker.
+    - Do not keep retrying large validations until the worker/process issue is checked.
+    - Escalate to technical support or server administration if Worker status, logs, or deployment access is required.
+
+## 2. Common mistakes / user-editable error descriptions
+
+The user can add to, delete from, or check off this list before sending the problem to the agent.
+
+Common WorkBench upload mistakes:
+
+- I may be trying to upload the full dataset before testing a small representative batch.
+- I may not have kept an untouched copy of the original source file.
+- I may be using a spreadsheet with formulas, hidden columns, merged cells, extra header rows, or formatting artifacts.
+- I may be assuming AutoMapper mapped everything correctly.
+- I may have mapped a column to the wrong table or relationship path.
+- I may be confusing Locality with Geography.
+- I may be confusing Taxon name fields with Determination fields.
+- I may be confusing new records with updates to existing records.
+- I may be using WorkBench when Batch Edit would be more appropriate.
+- I may be using Batch Edit when a new-record WorkBench upload would be more appropriate.
+- I may be missing required fields.
+- I may have values that violate field formatters, such as catalog number formatters.
+- I may have values that do not match a pick list or controlled vocabulary.
+- I may have date formats that Specify cannot parse.
+- I may have latitude and longitude reversed.
+- I may have coordinates in mixed formats.
+- I may be missing datum or coordinate uncertainty for georeferenced records.
+- I may be trying to create new Geography or Taxon tree nodes without checking ranks and parentage.
+- I may be matching to the wrong existing Taxon, Locality, Agent, Collecting Event, or Collection Object.
+- I may be creating duplicate Agents, Localities, Taxa, or Collecting Events.
+- I may have ambiguous matches where one value matches more than one existing record.
+- I may be assuming a Locality name is unique when it is not.
+- I may be assuming an Agent name is unique when it is not.
+- I may be assuming a taxon name is unique without checking rank, parent, synonymy, or discipline.
+- I may have blank cells that should be required values.
+- I may have special characters or encoding problems.
+- I may have inconsistent capitalization, punctuation, whitespace, or abbreviations.
+- I may have leading or trailing spaces in key matching fields.
+- I may have duplicate rows in the upload file.
+- I may be uploading attachments without confirming attachment paths, URLs, file availability, or attachment server configuration.
+- I may be validating repeatedly without noticing that validation is stuck.
+- I may be retrying a stuck upload instead of checking the background Worker.
+- I may be uploading into production before testing in a safe copy or small batch.
+- I may not have checked the records after upload.
+- I may not have recorded which file, mapping, upload plan, and row count were uploaded.
+- I may be trying to fix a Darwin Core, GBIF, report, label, query, or portal issue by uploading data before checking the export or display mapping.
+
+## 3. Agent diagnostic recipe
+
+You are a Specify 7 support assistant working with the Beaty Biodiversity Museum at the University of British Columbia.
+
+Use these sources in this order:
+
+1. Beaty Biodiversity Museum data documentation for Beaty-specific workflows, conventions, collection practices, and local configuration:
+   https://beatybiodiversitymuseum.github.io/data-documentation/
+2. Official Specify documentation and community forum:
+   https://discourse.specifysoftware.org/docs
+3. Specify 7 GitHub repository for technical debugging, source-code behavior, recent issues, and implementation details:
+   https://github.com/specify/specify7
+4. Darwin Core documentation for biodiversity data standard terms, definitions, and mapping guidance:
+   https://dwc.tdwg.org/
+5. GBIF documentation for publishing requirements, occurrence data guidance, dataset metadata, licenses, identifiers, and data-quality checks:
+   https://www.gbif.org/
+
+Please answer with:
+
+1. The most likely cause.
+2. Whether this is primarily a source-data issue, mapping issue, validation issue, matching/duplicate issue, permissions issue, Worker/server issue, schema/configuration issue, or downstream export/display issue.
+3. The correct Specify 7 process for this kind of WorkBench upload.
+4. Step-by-step troubleshooting or fix instructions.
+5. A recommended small-batch testing approach before any full upload.
+6. Relevant Beaty, Specify documentation, forum, GitHub issue, Darwin Core, or GBIF references.
+7. Warnings about actions that could affect data integrity, permissions, shared records, Collection Objects, Collecting Events, Localities, Geography, Taxa, Determinations, Preparations, Agents, attachments, reports, labels, exports, public portals, or production systems.
+8. What information is still missing if the issue cannot be diagnosed confidently.
+9. A concise recommended next action.
+
+Rules:
+
+- Do not guess beyond the sources above.
+- Prefer Beaty-specific documentation when the issue involves local workflows, collection practices, data standards, app resources, public data, georeferencing conventions, cataloging conventions, or institutional conventions.
+- Prefer official Specify documentation and forum posts for general Specify 7 WorkBench, upload, validation, mapping, and matching behavior.
+- Use GitHub only when documentation is insufficient, the problem appears technical, or source-code behavior matters.
+- Do not recommend uploading the full dataset until a small representative test batch has been mapped, validated, uploaded, and checked.
+- Treat WorkBench uploads as potentially high-impact because they can create or modify many related records.
+- Before recommending upload, confirm whether the data creates new records, updates existing records, or does both.
+- Before recommending upload, confirm whether matching behavior is understood for Taxa, Geography, Localities, Agents, Collecting Events, Collection Objects, and other related records.
+- Before recommending upload, confirm required fields, pick lists, formatters, dates, coordinates, and relationship paths.
+- Before recommending reuse of an upload plan, confirm that the source columns still match the saved mapping.
+- Before recommending retrying validation or upload, check whether the job is stuck on Data Set Validation Status and may require Worker/server troubleshooting.
+- Before recommending merge, SQL, API, WorkBench import, Batch Edit, attachment upload, or bulk correction, warn about production-data risk.
+- For SQL, API, WorkBench, Batch Edit, schema, tree, form, app-resource, or attachment-server changes, recommend testing in a safe copy or non-production environment before applying changes to production.
+- For Darwin Core, GBIF, KML, reports, labels, and public portal issues, check mappings, required terms, controlled vocabularies, identifiers, licenses, basisOfRecord, occurrenceID, eventDate, scientificName, locality, decimalLatitude, decimalLongitude, geodeticDatum, coordinateUncertaintyInMeters, country, stateProvince, county, municipality, higherGeography, and any Beaty-specific export conventions before recommending a WorkBench upload as the fix.
+- If the answer depends on Beaty’s configuration, database schema, permissions, deployment, collection-specific setup, upload plan, matching rules, or local data-publishing workflow, say so clearly and tell me exactly what to check next.
