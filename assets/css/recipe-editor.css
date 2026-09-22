@@ -1,0 +1,99 @@
+.recipe-builder {
+  margin-top: 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.6rem;
+  overflow: hidden;
+}
+
+.recipe-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-code-bg-color);
+}
+
+.recipe-toolbar label {
+  font-weight: 700;
+}
+
+.recipe-toolbar select,
+.recipe-toolbar button {
+  font: inherit;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.35rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+}
+
+.recipe-toolbar button {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.recipe-toolbar button:hover {
+  background: var(--md-accent-fg-color--transparent);
+}
+
+#recipe-status {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.85rem;
+}
+
+.CodeMirror {
+  height: 75vh;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  padding: 0 0.75rem;
+}
+
+.CodeMirror-lines {
+  padding: 0.75rem 0;
+}
+
+.CodeMirror-gutters {
+  border-right: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-code-bg-color);
+}
+
+.cm-header {
+  color: var(--md-accent-fg-color);
+  font-weight: 700;
+}
+
+.cm-strong {
+  font-weight: 700;
+}
+
+.cm-em {
+  font-style: italic;
+}
+
+.cm-link {
+  color: var(--md-typeset-a-color);
+}
+
+.cm-url {
+  color: var(--md-typeset-a-color);
+}
+
+.cm-formatting-list,
+.cm-formatting-header {
+  color: var(--md-default-fg-color--light);
+}
+
+.cm-quote {
+  color: var(--md-default-fg-color--light);
+}
+
+.cm-comment {
+  color: var(--md-default-fg-color--light);
+}
